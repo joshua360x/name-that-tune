@@ -1,22 +1,30 @@
 import React from 'react';
 import { useState } from 'react';
-import { signupUser } from './services/fetch-utils';
+import { signupUser, signInUser } from './services/fetch-utils';
 
 export default function AuthPage({ setUser }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [wantsSignIn, setWantsSignIn] = useState(false);
   
   async function handleSubmit(e) {
     e.preventDefault();
-    const user = await signupUser(email, password, username);
-    setUser(user);
+    
+    if (wantsSignIn) {
+      const user = await signInUser(email, password);
+      setUser(user);
+    }
+    else {
+      const user = await signupUser(email, password, username);
+      setUser(user);
+    }
   }
 
 
   function handleSignInClick() {  
-
+    setWantsSignIn(true);
   }
 
   return (
@@ -34,13 +42,15 @@ export default function AuthPage({ setUser }) {
             required
           ></input>
         </label>
-        <label>
+        {
+          !wantsSignIn && <label>
           Username:
-          <input
-            onChange={(e)=> setUsername(e.target.value)}
-            name='username'
-          ></input>
-        </label>
+            <input
+              onChange={(e)=> setUsername(e.target.value)}
+              name='username'
+            ></input>
+          </label>
+        }
         <label>
           Password:
           <input
@@ -49,10 +59,17 @@ export default function AuthPage({ setUser }) {
             name='password'
           ></input>
         </label>
-        <button>Sign Up</button>
-        <button
-          onClick={handleSignInClick}
-        >Already a user? Sign In...</button>
+        {
+          !wantsSignIn && <button>Sign Up</button>
+        }
+        {
+          !wantsSignIn && <button
+            onClick={handleSignInClick}
+          >Already a user? Sign In...</button>
+        }
+        {
+          wantsSignIn && <button>Sign In</button>
+        }
       </form>
     </div>
   );

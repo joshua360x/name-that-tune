@@ -15,6 +15,7 @@ import About from './About';
 // import SpotifyPlaylist from './SpotifyPlaylist';
 
 import { useState, useEffect } from 'react';
+import { logout } from './services/fetch-utils';
 
 
 
@@ -28,6 +29,13 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <header>
+          <button
+            onClick={logout}
+          >
+            Log Out
+          </button>
+        </header>
         <Switch>
           <Route exact path='/selection'>
             {
