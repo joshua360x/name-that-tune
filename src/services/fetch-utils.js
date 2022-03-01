@@ -26,10 +26,23 @@ export function redirectIfLoggedIn() {
   }
 }
 
-export async function signupUser(email, password, profileName) {
+export async function signupUser(email, password, username) {
   const response = await client.auth.signUp({ email, password });
-
+  if (response.user) {  
+    await createProfile(username);
+  }
   return response.user;
+
+
+
+}
+
+export async function createProfile(username) {
+  const response = await client
+    .from('profiles')
+    .insert({ username });
+    
+  return checkError(response);
 }
 
 export async function signInUser(email, password) {

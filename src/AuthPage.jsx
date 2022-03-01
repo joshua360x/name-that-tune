@@ -1,16 +1,24 @@
 import React from 'react';
 import { useState } from 'react';
+import { signupUser } from './services/fetch-utils';
 
-export default function AuthPage() {
+export default function AuthPage({ setUser }) {
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   
-  async function handleSubmit() {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const user = await signupUser(email, password, username);
+    setUser(user);
+  }
 
+
+  function handleSignInClick() {  
 
   }
+
   return (
 
     <div className='auth'>
@@ -30,12 +38,21 @@ export default function AuthPage() {
           Username:
           <input
             onChange={(e)=> setUsername(e.target.value)}
+            name='username'
           ></input>
         </label>
         <label>
           Password:
-          <input></input>
+          <input
+            onChange={(e)=> setPassword(e.target.value)}
+            type='password'
+            name='password'
+          ></input>
         </label>
+        <button>Sign Up</button>
+        <button
+          onClick={handleSignInClick}
+        >Already a user? Sign In...</button>
       </form>
     </div>
   );
