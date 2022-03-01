@@ -1,6 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
 
 export default function AuthPage() {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
   
   async function handleSubmit() {
 
@@ -14,11 +19,18 @@ export default function AuthPage() {
       >
         <label>
           Email: 
-          <input></input>
+          <input 
+            type='email'
+            onChange={(e)=> setEmail(e.target.value)}
+            name='email'
+            required
+          ></input>
         </label>
         <label>
-          Profile Name:
-          <input></input>
+          Username:
+          <input
+            onChange={(e)=> setUsername(e.target.value)}
+          ></input>
         </label>
         <label>
           Password:
