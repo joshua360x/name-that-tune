@@ -20,7 +20,7 @@ import { logout } from './services/fetch-utils';
 
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(localStorage.getItem('supabase.auth.token'));
 
 
 

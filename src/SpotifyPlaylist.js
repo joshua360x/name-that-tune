@@ -8,18 +8,20 @@ export default function SpotifyPlaylist() {
   const netlifyUrl = '/.netlify/functions/spotify';
   const netlifyUrlToken = '/.netlify/functions/spotify-oauth';
 
-  const getToken = async () => {
-    const response = await fetch(netlifyUrlToken);
-    const json = await response.json();
-    console.log(json);
-  };
-  getToken();
+
+
 
   useEffect(() => {
     async function fetchPlayLists() {
       const playlistsArray = await fetchAllPlaylists();
       setPlaylists(playlistsArray);
     }
+    const getToken = async () => {
+      const response = await fetch(netlifyUrlToken);
+      const json = await response.json();
+      console.log(json);
+    };
+    getToken();
     fetchPlayLists();
   }, []);
 
@@ -40,6 +42,7 @@ export default function SpotifyPlaylist() {
       {/* {tracks.map((playlistItem, i) => {
         return <audio key={i} src={playlistItem.track.preview_url} controls></audio>;
       })} */}
+      
     </div>
   );
 }
