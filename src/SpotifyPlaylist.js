@@ -5,8 +5,8 @@ export default function SpotifyPlaylist() {
 
   async function fetchPlayLists() {
     const response = await fetch(netlifyUrl);
-
-    const json = await response.json();
+    console.log(response);
+    // const json = await response.json();
   }
   fetchPlayLists();
   return (
