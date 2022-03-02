@@ -48,11 +48,13 @@ export default function GamePage({ token }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsGameStarted(false);
     console.log(userGuess);
+    setCounter(counter + 1);
   }
 
   function handleStartGame() {
-    
+    setIsGameStarted(true);
   }
 
   return (
@@ -60,7 +62,7 @@ export default function GamePage({ token }) {
       <p>{ params.id }</p>
       <button onClick={handleStartGame}>Start Game</button>
       <p>Total Points</p>
-      { tracks && <audio src={tracks[counter].track.preview_url} controls></audio> }
+      { isGameStarted && <audio src={tracks[counter].track.preview_url} autoPlay></audio> }
       <div>Countown Bar</div>
       <form onSubmit={handleSubmit}>
 
