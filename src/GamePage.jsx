@@ -99,14 +99,19 @@ export default function GamePage({ token }) {
 
   return (
     <div>Welcome to GamePage
-      <h2>Current Round: {counter + 1}/{tracks.length}</h2>
       <button onClick={handleStartGame}>Begin Round</button>
       {(counter !== 0) && <h2>{isCorrectGuess ? 'CORRECT!!!!' : 'BUMMER YOU FAILED:('}</h2>}
-      <h2>Total Points: {totalPoints}</h2>
-      { isGameStarted && <audio src={tracks[counter].track.preview_url} autoPlay></audio> }
-      <h2>{(countDownSeconds < 10) ? `Countdown Timer: 00:0${countDownSeconds}` : `Countdown Timer: 00:${countDownSeconds}`}</h2>
-      <h2>Avaliable Points : {availablePoints}</h2>
-      
+      {(counter === tracks?.length) ? <div className='completed-game-state'>
+        <p>{`CONGRATS YOU'VE COMPLETED ${tracks?.length} ROUNDS. Your total points were ${totalPoints}. Great job you nerd!`}</p>
+        <button>Choose New Game</button>
+        <button>Go to Leader Board</button>
+      </div> : <div className='current-game-state'>
+        <h2>Current Round: {counter + 1}/{tracks?.length}</h2>
+        <h2>Total Points: {totalPoints}</h2>
+        { isGameStarted && <audio src={tracks[counter].track.preview_url} autoPlay></audio> }
+        <h2>{(countDownSeconds < 10) ? `Countdown Timer: 00:0${countDownSeconds}` : `Countdown Timer: 00:${countDownSeconds}`}</h2>
+        <h2>Avaliable Points : {availablePoints}</h2>
+      </div>}
       <form onSubmit={handleSubmit}>
 
         <label name='userGuess' className='track' >
