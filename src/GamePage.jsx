@@ -5,7 +5,10 @@ export default function GamePage({ token }) {
 
   const netlifyUrl = '/.netlify/functions/spotify-playlist-items';
   const [tracks, setTracks] = useState([]);
+  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [userGuess, setUserGuess] = useState('');
   const params = useParams();
+
 
 
   useEffect(() => {
@@ -23,6 +26,10 @@ export default function GamePage({ token }) {
   }, [token, params.id]);
 
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    console.log(userGuess);
+  }
 
   return (
     <div>Welcome to GamePage
@@ -30,15 +37,21 @@ export default function GamePage({ token }) {
       <button>Start Game</button>
       <p>Total Points</p>
       <div>Countown Bar</div>
-      {
-        tracks && tracks.map((track, i) => 
-          <label className='track' key={track + i} >
-            <input type='radio' name={track.track.name} value={track.track.id} />
-            {track.track.name}
-          </label>
-        )
+      <form onSubmit={handleSubmit}>
 
-      }
+        <label name='userGuess' className='track' >
+          {
+            tracks && tracks.map((track, i) => 
+              <div key={track + i}>
+
+                <p>{track.track.name}</p>
+                <input onChange={(e) => setUserGuess(e.target.value)} type='radio' name='userGuess' value={track.track.id} />
+              </div>
+            )
+          }
+        </label>
+        <button>Submit Guess</button>
+      </form>
     </div>
   );
 }
