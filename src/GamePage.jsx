@@ -4,10 +4,11 @@ import { useParams } from 'react-router-dom';
 export default function GamePage({ token }) {
 
   const netlifyUrl = '/.netlify/functions/spotify-playlist-items';
-  const [tracks, setTracks] = useState([]);
+  const [tracks, setTracks] = useState(null);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [userGuess, setUserGuess] = useState('');
   const [tracksShuffled, setTracksShufffled] = useState([]);
+  const [counter, setCounter] = useState(0);
   const params = useParams();
 
   function shuffleArray(array) {
@@ -50,11 +51,16 @@ export default function GamePage({ token }) {
     console.log(userGuess);
   }
 
+  function handleStartGame() {
+    
+  }
+
   return (
     <div>Welcome to GamePage
       <p>{ params.id }</p>
-      <button>Start Game</button>
+      <button onClick={handleStartGame}>Start Game</button>
       <p>Total Points</p>
+      { tracks && <audio src={tracks[counter].track.preview_url} controls></audio> }
       <div>Countown Bar</div>
       <form onSubmit={handleSubmit}>
 
