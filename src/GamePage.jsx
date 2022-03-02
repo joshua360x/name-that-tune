@@ -7,8 +7,27 @@ export default function GamePage({ token }) {
   const [tracks, setTracks] = useState([]);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [userGuess, setUserGuess] = useState('');
+  const [tracksShuffled, setTracksShufffled] = useState([]);
   const params = useParams();
 
+  function shuffleArray(array) {
+    
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+  }
+  useEffect(() => {
+
+    if (tracks) {
+      let trackShuffled = [...tracks];
+      shuffleArray(trackShuffled);
+      setTracksShufffled(trackShuffled);
+      console.log(trackShuffled);
+    }
+  }, [tracks]);
 
 
   useEffect(() => {
@@ -41,7 +60,7 @@ export default function GamePage({ token }) {
 
         <label name='userGuess' className='track' >
           {
-            tracks && tracks.map((track, i) => 
+            tracks && tracksShuffled.map((track, i) => 
               <div key={track + i}>
 
                 <p>{track.track.name}</p>
