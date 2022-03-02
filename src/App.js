@@ -9,7 +9,7 @@ import {
 
 import AuthPage from './AuthPage';
 import GamePage from './GamePage';
-import SelectionPage from './SelectionPage';
+import SelectionPage from './SelectionPage.js';
 import LeaderboardPage from './LeaderboardPage';
 import About from './About';
 // import SpotifyPlaylist from './SpotifyPlaylist';
@@ -21,6 +21,9 @@ import { logout } from './services/fetch-utils';
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('supabase.auth.token'));
+  const [token, setToken] = useState('');
+  // const [gamePlaylists, setGamePlaylists] = useState([]);
+  
 
 
 
@@ -40,14 +43,14 @@ function App() {
           <Route exact path='/selection'>
             {
               user
-                ? <SelectionPage/>
+                ? <SelectionPage setToken={setToken} />
                 : <Redirect to='/' />
             }
           </Route>
-          <Route exact path='/game'>
+          <Route exact path='/game/:id'>
             {
               user
-                ? <GamePage/>
+                ? <GamePage />
                 : <Redirect to='/' />
             }
           </Route>
