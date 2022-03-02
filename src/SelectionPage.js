@@ -7,7 +7,6 @@ export default function SelectionPage({ setToken }) {
   const [playlists, setPlaylists] = useState([]);
   // const [tracks, setTracks] = useState([]);
 
-  const netlifyUrl = '/.netlify/functions/spotify';
   const netlifyUrlToken = '/.netlify/functions/spotify-oauth';
 
   useEffect(() => {

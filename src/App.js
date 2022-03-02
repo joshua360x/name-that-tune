@@ -50,7 +50,7 @@ function App() {
           <Route exact path='/game/:id'>
             {
               user
-                ? <GamePage />
+                ? <GamePage token={token} />
                 : <Redirect to='/' />
             }
           </Route>
