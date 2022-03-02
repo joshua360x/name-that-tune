@@ -12,6 +12,9 @@ export default function GamePage({ token }) {
   const [totalPoints, setTotalPoints] = useState(0);
   const [countDownSeconds, setCountDownSeconds] = useState(30);
   const [timer, setTimer] = useState('');
+  const [availablePoints, setAvailablePoints] = useState(100);
+  const [pointsTimer, setPointsTimer] = useState('');
+  const [isCorrectGuess, setIsCorrectGuess] = useState(false);
   const params = useParams();
 
    
@@ -56,17 +59,19 @@ export default function GamePage({ token }) {
     setIsGameStarted(false);
     console.log(userGuess);
     if (userGuess === tracks[counter].track.id) {
-      console.log('correct');
-      setTotalPoints(totalPoints + 1);
-      console.log(totalPoints);
+      setIsCorrectGuess(true);
+      setTotalPoints(totalPoints + availablePoints);
+      
     } else {
-      console.log('wrong, try again!');
+      setIsCorrectGuess(false);
     }
     setCounter(counter + 1);
 
     // clearInterval(timer);
+    
 
     setCountDownSeconds(30);
+    setAvailablePoints(100);
   }
 
   useEffect(() => {
@@ -76,22 +81,32 @@ export default function GamePage({ token }) {
   function handleStartGame() {
     setIsGameStarted(true);
     setTimer(setInterval(decrementAndDisplayTimer, 1000));
+
+    setPointsTimer(setInterval(decrementPoints, 5000));
     //  setInterval(decrementAndDisplayTimer, 1000);
   }
   function decrementAndDisplayTimer() {
     setCountDownSeconds(countDownSeconds => countDownSeconds - 1);
   }
+  function decrementPoints() {
+    setAvailablePoints(availablePoints => availablePoints - 10);
+  }
   useEffect(() => {
     !isGameStarted && clearInterval(timer);
+    !isGameStarted && clearInterval(pointsTimer);
   }, [isGameStarted]);
+ 
 
   return (
     <div>Welcome to GamePage
-      <p>{ params.id }</p>
-      <button onClick={handleStartGame}>Start Game</button>
-      <p>Total Points</p>
+      <h2>Current Round: {counter + 1}/{tracks.length}</h2>
+      <button onClick={handleStartGame}>Begin Round</button>
+      {(counter !== 0) && <h2>{isCorrectGuess ? 'CORRECT!!!!' : 'BUMMER YOU FAILED:('}</h2>}
+      <h2>Total Points: {totalPoints}</h2>
       { isGameStarted && <audio src={tracks[counter].track.preview_url} autoPlay></audio> }
-      <h2>Countown Timer: {countDownSeconds}</h2>
+      <h2>{(countDownSeconds < 10) ? `Countdown Timer: 00:0${countDownSeconds}` : `Countdown Timer: 00:${countDownSeconds}`}</h2>
+      <h2>Avaliable Points : {availablePoints}</h2>
+      
       <form onSubmit={handleSubmit}>
 
         <label name='userGuess' className='track' >
@@ -101,6 +116,7 @@ export default function GamePage({ token }) {
 
                 <p>{track.track.name}</p>
                 <input onChange={(e) => setUserGuess(e.target.value)} type='radio' name='userGuess' value={track.track.id} />
+
               </div>
             )
           }
