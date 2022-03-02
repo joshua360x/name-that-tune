@@ -38,7 +38,7 @@ exports.handler = async (event, context) => {
 
   return {
     statusCode: 200,
-    body: response.body.access_token
+    body: JSON.stringify(response.body.access_token)
   };
 
   //   }
