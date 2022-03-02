@@ -9,6 +9,7 @@ export default function GamePage({ token }) {
   const [userGuess, setUserGuess] = useState('');
   const [tracksShuffled, setTracksShufffled] = useState([]);
   const [counter, setCounter] = useState(0);
+  const [totalPoints, setTotalPoints] = useState(0);
   const params = useParams();
 
   function shuffleArray(array) {
@@ -50,8 +51,19 @@ export default function GamePage({ token }) {
     e.preventDefault();
     setIsGameStarted(false);
     console.log(userGuess);
+    if (userGuess === tracks[counter].track.id) {
+      console.log('correct');
+      setTotalPoints(totalPoints + 1);
+      console.log(totalPoints);
+    } else {
+      console.log('wrong, try again!');
+    }
     setCounter(counter + 1);
   }
+
+  useEffect(() => {
+    console.log(totalPoints);
+  }, [totalPoints]);
 
   function handleStartGame() {
     setIsGameStarted(true);
