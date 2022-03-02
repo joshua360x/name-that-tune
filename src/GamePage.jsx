@@ -10,7 +10,11 @@ export default function GamePage({ token }) {
   const [tracksShuffled, setTracksShufffled] = useState([]);
   const [counter, setCounter] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
+  const [countDownSeconds, setCountDownSeconds] = useState(30);
+  const [timer, setTimer] = useState('');
   const params = useParams();
+
+   
 
   function shuffleArray(array) {
     
@@ -59,6 +63,10 @@ export default function GamePage({ token }) {
       console.log('wrong, try again!');
     }
     setCounter(counter + 1);
+
+    // clearInterval(timer);
+
+    setCountDownSeconds(30);
   }
 
   useEffect(() => {
@@ -67,7 +75,15 @@ export default function GamePage({ token }) {
 
   function handleStartGame() {
     setIsGameStarted(true);
+    setTimer(setInterval(decrementAndDisplayTimer, 1000));
+    //  setInterval(decrementAndDisplayTimer, 1000);
   }
+  function decrementAndDisplayTimer() {
+    setCountDownSeconds(countDownSeconds => countDownSeconds - 1);
+  }
+  useEffect(() => {
+    !isGameStarted && clearInterval(timer);
+  }, [isGameStarted]);
 
   return (
     <div>Welcome to GamePage
@@ -75,7 +91,7 @@ export default function GamePage({ token }) {
       <button onClick={handleStartGame}>Start Game</button>
       <p>Total Points</p>
       { isGameStarted && <audio src={tracks[counter].track.preview_url} autoPlay></audio> }
-      <div>Countown Bar</div>
+      <h2>Countown Timer: {countDownSeconds}</h2>
       <form onSubmit={handleSubmit}>
 
         <label name='userGuess' className='track' >
