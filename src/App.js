@@ -9,8 +9,10 @@ import About from './About';
 // import SpotifyPlaylist from './SpotifyPlaylist';
 
 import { useState, useEffect } from 'react';
+
 import { logout, fetchUserProfile } from './services/fetch-utils';
 import Song from './Song';
+
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('supabase.auth.token'));
@@ -26,24 +28,40 @@ function App() {
       user_id
         ? (profile = await fetchUserProfile(user_id.currentSession.user.id))
         : (profile = null);
-      console.log(user_id);
+      // console.log(user_id);
       setUserProfile(profile);
     };
     getProfile();
-  }, []);
+  }, [user]);
 
   return (
-    <div className="App">
+    <div className="App" style={{ background: 'url(/background.jpeg)' }}>
       <Router>
         <header>
-          <button onClick={logout}>Log Out</button>
-          <NavLink to="/about">About</NavLink>
+
+          { user &&
+          <ul className='nav-list'>
+            <li>
+              <NavLink className='link' to='/selection'>Selection</NavLink>
+            </li>
+            <li>
+              <button className='logout-button' onClick={logout}>Log Out</button>
+            </li>
+            <li>
+              <NavLink className='link' to='/leaderboard'>Leaderboard</NavLink>
+            </li>
+            <li>
+               <NavLink className='link' to="/about">About</NavLink> 
+            </li>
+          </ul>
+          }
+
         </header>
         <Switch>
           <Route exact path="/selection">
             {user ? <SelectionPage setToken={setToken} /> : <Redirect to="/" />}
           </Route>
-          <Route exact path="/game/:id">
+          <Route exact path="/game/:id/:name">
             {user ? <GamePage token={token} userProfile={userProfile} /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/leaderboard">
