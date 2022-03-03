@@ -60,3 +60,14 @@
 .track {
   display: block;
 }
+
+.nav-list {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-list li {
+  margin: 5px;
+}

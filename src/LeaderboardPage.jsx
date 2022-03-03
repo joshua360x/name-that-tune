@@ -48,9 +48,10 @@ export default function LeaderboardPage() {
 
 
 
-    console.log(newLeaders);
+//     console.log(newLeaders);
     const mungedData = Object.entries(newLeaders);
-    console.log(mungedData);
+
+//     console.log(mungedData);
 
 
 
@@ -64,10 +65,10 @@ export default function LeaderboardPage() {
       };
     });
 
-    console.log(newData);
+//     console.log(newData);
 
     const sortedData = newData.sort((a, b) => a.pointsPerRound - b.pointsPerRound).reverse();
-    console.log(sortedData);
+//     console.log(sortedData);
 
 
 
