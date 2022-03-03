@@ -24,7 +24,7 @@ function App() {
       user_id
         ? (profile = await fetchUserProfile(user_id.currentSession.user.id))
         : (profile = null);
-      console.log(user_id);
+      // console.log(user_id);
       setUserProfile(profile);
     };
     getProfile();

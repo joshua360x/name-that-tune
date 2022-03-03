@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
@@ -16,6 +17,8 @@ export default function GamePage({ token, userProfile }) {
   const [availablePoints, setAvailablePoints] = useState(100);
   const [pointsTimer, setPointsTimer] = useState('');
   const [isCorrectGuess, setIsCorrectGuess] = useState(false);
+
+  const [choiceArr, setChoiceArr] = useState([]);
 
   const netlifyUrl = '/.netlify/functions/spotify-playlist-items';
 
@@ -39,14 +42,38 @@ export default function GamePage({ token, userProfile }) {
   // Then randomly push 3 more that DO NOT MATCH THE FIRST/CORRECT ANSWER
   //THEN RANDOMIZE THE WHOLE ARRAY
 
-
   useEffect(() => {
     if (tracks) {
-      let trackShuffled = [...tracks];
-      shuffleArray(trackShuffled);
-      setTracksShufffled(trackShuffled);
+      let copyOfTracks = [...tracks];
+      //slice/splice the correct answer out of the array
+      const correctTrack = copyOfTracks.splice(counter, 1);
+      // console.log(correctTrack);
+      
+      //now splice 3 random out of the array
+      shuffleArray(copyOfTracks); //"shuffles in place"
+      const random3Tracks = copyOfTracks.splice(0, 3);
+      // console.log(random3Tracks);
+      
+      // put them all in the same array
+      const all4Choices = [...correctTrack, ...random3Tracks];
+      // console.log(all4choices);
+
+      //shuffle them
+      shuffleArray(all4Choices);
+      // console.log('shuffled', all4choices);
+      setChoiceArr(all4Choices);
     }
-  }, [tracks]);
+  }, [tracks, counter]);
+  
+
+//OLD 10 MULTIPLE CHOICE TRACKS
+  // useEffect(() => {
+  //   if (tracks) {
+  //     let trackShuffled = [...tracks];
+  //     shuffleArray(trackShuffled);
+  //     setTracksShufffled(trackShuffled);
+  //   }
+  // }, [tracks]);
 
   useEffect(() => {
     async function fetchPlayListsFromSpotify() {
@@ -118,9 +145,12 @@ export default function GamePage({ token, userProfile }) {
   return (
     <div className='game-page'>
       <h2>Welcome to Tunify! Now name that tune!</h2>
-      {!isGameStarted && <button onClick={handleStartGame}>Begin Round</button>}
-      {counter !== 0 && <h2>{isCorrectGuess ? 'CORRECT!!!!' : 'WRONG ANSWER!'}</h2>}
-      {counter === tracks?.length ? (
+      {!isGameStarted && 
+      <button onClick={handleStartGame}>Begin Round</button>}
+      {counter !== 0 && 
+      <h2>{isCorrectGuess ? 'CORRECT!!!!' : 'WRONG ANSWER!'}</h2>}
+      {counter === tracks?.length ? 
+      (
         <div className="completed-game-state">
           <p>{`CONGRATS YOU'VE COMPLETED ${tracks?.length} ROUNDS. Your total points were ${totalPoints}. Great job you nerd!`}</p>
           <button onClick={handleChooseNewGameClick}>Choose New Game</button>
@@ -133,31 +163,37 @@ export default function GamePage({ token, userProfile }) {
           </h2>
           <h2>Total Points: {totalPoints}</h2>
           {isGameStarted && <audio src={tracks[counter].track.preview_url} autoPlay></audio>}
-          <h2>
-            {countDownSeconds < 10
-              ? `Countdown Timer: 00:0${countDownSeconds}`
-              : `Countdown Timer: 00:${countDownSeconds}`}
-          </h2>
-          <h2>Avaliable Points : {availablePoints}</h2>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
-        <div name="userGuess" className="choices">
-          {tracks &&
-            tracksShuffled.map((track, i) => (
-              <div key={track + i} className='radio'>
-                <input
-                  onChange={(e) => setUserGuess(e.target.value)}
-                  type="radio"
-                  name="userGuess"
-                  value={track.track.id}
-                />
-                <p>{track.track.name}</p>
-              </div>
-            ))}
-        </div>
-        {userGuess ? <button>Submit Guess</button> : <button>Skip</button>}
-      </form>
+      {isGameStarted &&
+      <div>
+        <h2>
+          {countDownSeconds < 10
+            ? `Countdown Timer: 00:0${countDownSeconds}`
+            : `Countdown Timer: 00:${countDownSeconds}`}
+        </h2>
+        <h2>Avaliable Points : {availablePoints}</h2>
+        <form onSubmit={handleSubmit}>
+          <div name="userGuess" className="choices">
+            {tracks &&
+              choiceArr.map((track, i) => (
+                <div key={track + i} className='radio'>
+                  <input
+                    onChange={(e) => setUserGuess(e.target.value)}
+                    type="radio"
+                    name="userGuess"
+                    value={track.track.id}
+                  />
+                  <p>{track.track.name}</p>
+                </div>
+              ))}
+          </div>
+          {userGuess
+            ? <button>Submit Guess</button> 
+            : <button>Skip</button>}
+        </form>
+      </div>
+    }
     </div>
   );
 }

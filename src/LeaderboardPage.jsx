@@ -33,7 +33,7 @@ export default function LeaderboardPage() {
     }, {});
 
     const mungedData = Object.entries(newLeaders);
-    console.log(mungedData);
+    // console.log(mungedData);
     setMungedLeaders(mungedData);
   }, []);
 
