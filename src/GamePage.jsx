@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { insertLeaderBoard } from './services/fetch-utils';
 
 export default function GamePage({ token, userProfile }) {
-  console.log(userProfile);
   const netlifyUrl = '/.netlify/functions/spotify-playlist-items';
   const [tracks, setTracks] = useState(null);
   const [isGameStarted, setIsGameStarted] = useState(false);
