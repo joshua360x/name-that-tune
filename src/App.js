@@ -9,7 +9,7 @@ import About from './About';
 // import SpotifyPlaylist from './SpotifyPlaylist';
 
 import { useState, useEffect } from 'react';
-import { logout, fetchUserProfile } from './services/fetch-utils';
+import { logout, fetchUserProfile } from './services/fetch-utils'; 
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('supabase.auth.token'));
@@ -31,7 +31,7 @@ function App() {
   }, [user]);
 
   return (
-    <div className="App">
+    <div className="App" style={{ background: 'url(/background.jpeg)' }}>
       <Router>
         <header>
           <ul className='nav-list'>
