@@ -96,25 +96,6 @@ export default function LeaderboardPage() {
 
 
 
-
-
-    // const newData = mungedData.reduce((acc, curr) => {
-    //   const dataEntries = Object.keys(newLeaders);
-    //   dataEntries.map((dataEntry, i) => {
-
-    //     const obj = {
-    //       username: dataEntry,
-    //       totalPoints: dataEntry.totalPoints,
-    //       totalGames: dataEntry.totalGames,
-    //       rounds: dataEntry.rounds
-    //     };
-    //     acc.push([...acc, obj]);
-    //   });
-    //   return acc;
-    // }, []);
-
-
-
     const newData = mungedData.map((mungedDataPoint, i) => {
       return {
         username: mungedDataPoint[0],
@@ -139,53 +120,11 @@ export default function LeaderboardPage() {
 
 
 
-
-
-  // function createData(username, totalPoints, totalGames, rounds) {
-  //   return { username, totalPoints, totalGames, rounds };
-  // }
-  
-  // const rows = [
-  //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  //   createData('Eclair', 262, 16.0, 24, 6.0),
-  //   createData('Cupcake', 305, 3.7, 67, 4.3),
-  //   createData('Gingerbread', 356, 16.0, 49, 3.9),
-  // ];
-
-
-
   return (
     <div className="leaderboard">
       <h3>Leaderboard</h3>
       <div className="leader-div">
-        {/* <h3>{leader[0]}</h3>
-            <p>{`Total Points ${leader[1].totalPoints}`} </p>
-            <p>{`Total Games ${leader[1].totalGames}`} </p>
-            <p>{`Total Rounds ${leader[1].rounds}`} </p> */}
 
-        {/* <Table
-              loading={loading}
-              height={300}
-              hover={hover}
-              showHeader={showHeader}
-              autoHeight={autoHeight}
-              data={noData ? [] : data}
-              bordered={bordered}
-              cellBordered={bordered}
-              headerHeight={compact ? 30 : 40}
-              rowHeight={compact ? 30 : 46}
-            >
-              {columns.map(column => {
-                const { key, label, ...rest } = column;
-                return (
-                  <Table.Column {...rest} key={key}>
-                    <CustomHeaderCell>{label}</CustomHeaderCell>
-                    <CustomCell dataKey={key} />
-                  </Table.Column>
-                );
-              })}
-            </Table> */}
 
         {
           mungedLeaders &&
@@ -218,71 +157,6 @@ export default function LeaderboardPage() {
               </TableBody>
             </Table>
           </TableContainer>
-
-        // <Table
-        //   loading={loading}
-        //   height={400}
-        //   defaultExpandAllRows={true}
-        //   data={mungedLeaders}
-        //   onRowClick={data => {
-        //     console.log(data);
-        //   }}
-        // >
-        //   <Table.ColumnGroup>
-
-        //     <Table.Column width={100} align="center" fixed>
-        //       <Table.HeaderCell>Username</Table.HeaderCell>
-        //       <Table.Cell dataKey='username' />
-        //     </Table.Column>
-
-        //     <Table.Column width={200} fixed>
-        //       <Table.HeaderCell>Total Points</Table.HeaderCell>
-        //       <Table.Cell dataKey="totalPoints" />
-        //     </Table.Column>
-            
-        //     <Table.Column width={200}>
-        //       <Table.HeaderCell>Total Games</Table.HeaderCell>
-        //       <Table.Cell dataKey="totalGames" />
-        //     </Table.Column>
-            
-        //     <Table.Column width={200} fixed="right">
-        //       <Table.HeaderCell>Rounds</Table.HeaderCell>
-        //       <Table.Cell dataKey="rounds" />
-        //     </Table.Column>
-            
-        //   </Table.ColumnGroup>
-        //   {/* <Table.Column width={200}>
-        //     <Table.HeaderCell>Street</Table.HeaderCell>
-        //     <Table.Cell dataKey="street" />
-        //   </Table.Column>
-            
-        //   <Table.Column width={300}>
-        //   <Table.HeaderCell>Company Name</Table.HeaderCell>
-        //   <Table.Cell dataKey="companyName" />
-        //   </Table.Column>
-          
-        //   <Table.Column width={300}>
-        //     <Table.HeaderCell>Email</Table.HeaderCell>
-        //     <Table.Cell dataKey="email" />
-        //   </Table.Column>
-        //   <Table.Column width={120} fixed="right">
-        //     <Table.HeaderCell>Action</Table.HeaderCell>
-            
-        //     <Table.Cell>
-        //       {rowData => {
-        //         function handleAction() {
-        //           alert(`id:${rowData.id}`);
-        //         }
-        //         return (
-        //           <span>
-        //             <a onClick={handleAction}> Edit </a> | <a onClick={handleAction}> Remove </a>
-        //           </span>
-        //         );
-        //       }}
-        //     </Table.Cell> 
-        //   </Table.Column> */}
-        // </Table>
-
         }
 
       </div>
