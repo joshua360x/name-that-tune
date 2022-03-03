@@ -111,7 +111,7 @@ export default function LeaderboardPage() {
                     <TableCell align="right">{row.rounds}</TableCell>
                     <TableCell align="right">{row.totalGames}</TableCell>
                     <TableCell align="right">{row.totalPoints}</TableCell>
-                    <TableCell align="right">{row.pointsPerRound}</TableCell>
+                    <TableCell align="right">{row.pointsPerRound}%</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
