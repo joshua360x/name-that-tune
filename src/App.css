@@ -235,5 +235,36 @@ html, body, #root, .App {
 .game-choices {
   display: grid;
   grid-template-columns: 10rem 10rem;
-  grid-gap: 3rem;
+  grid-gap: 4rem;
+}
+
+.game-choices a:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+a {
+  text-decoration: none;
+}
+
+.choice {
+  margin: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 25px;
+  /* color: rgb(85,197,212); */
+  background-color: rgb(255,101,195);
+  border: 1px solid black;
+  height: 80px;
+  width: 200px;
+  box-shadow: 8px 8px #eb2ec5;
+  margin: 5px;
+  text-align: center;
+  text-justify: center;
+};
+
+a:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
 }

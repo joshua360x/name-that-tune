@@ -29,7 +29,7 @@ export default function SelectionPage({ setToken }) {
       <p>Choose your playlist to initiate a game. You will have 30 seconds to guess the song name. As the clock ticks, your points go down. Good luck music nerds!</p>
       <div className='game-choices'>
         { playlists.map((playlistItem, i) => <Link to={`/game/${playlistItem.playlist_id}`} key={playlistItem + i}>
-          <div>{ playlistItem.playlist_name }</div>
+          <div className='choice'>{ playlistItem.playlist_name }</div>
         </Link>
         )}
       </div>
