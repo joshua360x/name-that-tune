@@ -34,6 +34,7 @@ function App() {
     <div className="App" style={{ background: 'url(/background.jpeg)' }}>
       <Router>
         <header>
+          { user &&
           <ul className='nav-list'>
             <li>
               <NavLink to='/selection'>Selection</NavLink>
@@ -45,6 +46,7 @@ function App() {
               <NavLink to='/leaderboard'>Leaderboard</NavLink>
             </li>
           </ul>
+          }
         </header>
         <Switch>
           <Route exact path="/selection">
