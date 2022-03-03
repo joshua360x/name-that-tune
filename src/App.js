@@ -10,10 +10,12 @@ import About from './About';
 
 import { useState, useEffect } from 'react';
 import { logout, fetchUserProfile } from './services/fetch-utils';
+import Song from './Song';
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('supabase.auth.token'));
   const [token, setToken] = useState('');
+  const [joshFavSong, setJoshFavSong] = useState('');
   // const [gamePlaylists, setGamePlaylists] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
 
@@ -35,6 +37,7 @@ function App() {
       <Router>
         <header>
           <button onClick={logout}>Log Out</button>
+          <NavLink to="/about">About</NavLink>
         </header>
         <Switch>
           <Route exact path="/selection">
@@ -47,13 +50,16 @@ function App() {
             {user ? <LeaderboardPage /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/about">
-            {user ? <About /> : <Redirect to="/" />}
+            {user ? <About joshFavSong={joshFavSong} /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/">
             {user ? <Redirect to="/selection" /> : <AuthPage setUser={setUser} />}
           </Route>
         </Switch>
       </Router>
+      <div className="song-hidden">
+        {token && <Song token={token} setJoshFavSong={setJoshFavSong} />}
+      </div>
     </div>
   );
 }
