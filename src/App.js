@@ -24,17 +24,27 @@ function App() {
       user_id
         ? (profile = await fetchUserProfile(user_id.currentSession.user.id))
         : (profile = null);
-      console.log(user_id);
+      // console.log(user_id);
       setUserProfile(profile);
     };
     getProfile();
-  }, []);
+  }, [user]);
 
   return (
     <div className="App">
       <Router>
         <header>
-          <button onClick={logout}>Log Out</button>
+          <ul className='nav-list'>
+            <li>
+              <NavLink to='/selection'>Selection</NavLink>
+            </li>
+            <li>
+              <button onClick={logout}>Log Out</button>
+            </li>
+            <li>
+              <NavLink to='/leaderboard'>Leaderboard</NavLink>
+            </li>
+          </ul>
         </header>
         <Switch>
           <Route exact path="/selection">
