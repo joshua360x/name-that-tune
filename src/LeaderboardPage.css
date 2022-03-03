@@ -1,0 +1,12 @@
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.leader-div {
+    border: 1px solid black;
+    width: fit-content;
+    padding: 10pxnpm start;
+}
