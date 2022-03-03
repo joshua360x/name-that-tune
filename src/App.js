@@ -34,23 +34,25 @@ function App() {
     <div className="App" style={{ background: 'url(/background.jpeg)' }}>
       <Router>
         <header>
+          { user &&
           <ul className='nav-list'>
             <li>
-              <NavLink to='/selection'>Selection</NavLink>
+              <NavLink className='link' to='/selection'>Selection</NavLink>
             </li>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button className='logout-button' onClick={logout}>Log Out</button>
             </li>
             <li>
-              <NavLink to='/leaderboard'>Leaderboard</NavLink>
+              <NavLink className='link' to='/leaderboard'>Leaderboard</NavLink>
             </li>
           </ul>
+          }
         </header>
         <Switch>
           <Route exact path="/selection">
             {user ? <SelectionPage setToken={setToken} /> : <Redirect to="/" />}
           </Route>
-          <Route exact path="/game/:id">
+          <Route exact path="/game/:id/:name">
             {user ? <GamePage token={token} userProfile={userProfile} /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/leaderboard">

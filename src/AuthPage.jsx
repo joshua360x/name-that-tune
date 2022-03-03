@@ -30,46 +30,52 @@ export default function AuthPage({ setUser }) {
   return (
 
     <div className='auth'>
-      <form
+      <h1>TUNIFY</h1>
+      <form className='login-form'
         onSubmit={handleSubmit}
       >
-        <label>
+        <div className='inputs'>
+          <label>
           Email: 
-          <input 
-            type='email'
-            onChange={(e)=> setEmail(e.target.value)}
-            name='email'
-            required
-          ></input>
-        </label>
-        {
-          !wantsSignIn && <label>
-          Username:
-            <input
-              onChange={(e)=> setUsername(e.target.value)}
-              name='username'
+            <input 
+              type='email'
+              onChange={(e)=> setEmail(e.target.value)}
+              name='email'
+              required
             ></input>
           </label>
-        }
-        <label>
+          {
+            !wantsSignIn && <label>
+          Username:
+              <input
+                onChange={(e)=> setUsername(e.target.value)}
+                name='username'
+              ></input>
+            </label>
+          }
+          <label>
           Password:
-          <input
-            onChange={(e)=> setPassword(e.target.value)}
-            type='password'
-            name='password'
-          ></input>
-        </label>
-        {
-          !wantsSignIn && <button>Sign Up</button>
-        }
-        {
-          !wantsSignIn && <button
-            onClick={handleSignInClick}
-          >Already a user? Sign In...</button>
-        }
-        {
-          wantsSignIn && <button>Sign In</button>
-        }
+            <input
+              onChange={(e)=> setPassword(e.target.value)}
+              type='password'
+              name='password'
+            ></input>
+          </label>
+        </div>
+
+        <div className='buttons'>
+          {
+            !wantsSignIn && <button>Sign Up</button>
+          }
+          {
+            !wantsSignIn && <button
+              onClick={handleSignInClick}
+            >Already a user? Sign In...</button>
+          }
+          {
+            wantsSignIn && <button>Sign In</button>
+          }
+        </div>
       </form>
     </div>
   );

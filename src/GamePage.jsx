@@ -141,21 +141,20 @@ export default function GamePage({ token, userProfile }) {
     setAvailablePoints((availablePoints) => availablePoints - 10);
   }
 
-
   return (
     <div className='game-page'>
-      <h2>Welcome to Tunify! Now name that tune!</h2>
+      <h2>{`Welcome to ${params.name} trivia!`} <br></br>Now name that tune!</h2>
 
       {/* GAME COMPLETION MESSAGE + REDIRECT BUTTONS */}
       {counter === tracks?.length &&
         <div className="completed-game-state">
           <h2>{`CONGRATS YOU'VE COMPLETED ${tracks?.length} ROUNDS. Your total points were ${totalPoints}. Great job you nerd!`}</h2>
-          <button onClick={handleChooseNewGameClick}>Choose New Game</button>
-          <button onClick={handleLeaderboardClick}>Go to Leader Board</button>
+          <button className='final-button' onClick={handleChooseNewGameClick}>Choose New Game</button>
+          <button className='final-button' onClick={handleLeaderboardClick}>Go to Leader Board</button>
         </div>
       }
 
-      {/* GAME POINTS, ROUNDS, AND AUDIO TAG */}
+      {/* TOTAL POINTS, ROUNDS, AND AUDIO TAG */}
       {counter !== tracks?.length &&
         <div className="current-game-state">
           <h2>Total Points: {totalPoints}</h2>
@@ -169,12 +168,12 @@ export default function GamePage({ token, userProfile }) {
 
       {/* BEGIN ROUND BUTTON */}
       {(!isGameStarted && counter !== tracks?.length) && 
-      <button onClick={handleStartGame}>Begin Round</button>}
+      <button className='game-button' onClick={handleStartGame}>Begin Round</button>}
 
       {/* MULTIPLE CHOICE FORM, COUNTDOWN TIMER, REMAINING POINTS */}
       {isGameStarted ?
       (
-      <div>
+      <div className='form-and-stuff'>
         <form onSubmit={handleSubmit}>
           <div name="userGuess" className="choices">
             {tracks &&
@@ -186,13 +185,14 @@ export default function GamePage({ token, userProfile }) {
                     name="userGuess"
                     value={track.track.id}
                   />
+                  <label htmlFor='label'></label>
                   <p>{track.track.name}</p>
                 </div>
               ))}
           </div>
           {userGuess
-            ? <button>Submit Guess</button> 
-            : <button>Skip</button>}
+            ? <button className='game-button'>Submit Guess</button> 
+            : <button className='game-button'>Skip</button>}
         </form>
         <h2>
           {countDownSeconds < 10
@@ -203,11 +203,9 @@ export default function GamePage({ token, userProfile }) {
       </div>
       ) : (
         // DISPLAY CORRECT OR INCORRECT
-        counter !== 0 && 
-          <h2>{isCorrectGuess 
-            ? 'CORRECT!!!!' 
-            : 'WRONG ANSWER!'}
-          </h2>
+        (counter !== 0 && isCorrectGuess) 
+            ? <div className='correct-wrong'><img src='/king.png'></img><h2>CORRECT!!!! </h2></div>
+            : <div className='correct-wrong'><img src='/king.png'></img><h2>WRONG ANSWER! </h2></div>
       )
       
 
