@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import GamePage from './GamePage';
 import { fetchAllPlaylists } from './services/fetch-utils';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function SelectionPage({ setToken }) {
   const [playlists, setPlaylists] = useState([]);
+  const history = useHistory();
   // const [tracks, setTracks] = useState([]);
 
   const netlifyUrlToken = '/.netlify/functions/spotify-oauth';
@@ -25,11 +26,12 @@ export default function SelectionPage({ setToken }) {
 
   return (
     <div>
-      { playlists.map((playlistItem, i) => <Link to={`/game/${playlistItem.playlist_id}`} key={playlistItem + i}>
-        <p>{ playlistItem.playlist_name }</p>
-
-      </Link>
-      )}
+      {playlists.map((playlistItem, i) => (
+        <Link to={`/game/${playlistItem.playlist_id}`} key={playlistItem + i}>
+          <p>{playlistItem.playlist_name}</p>
+        </Link>
+      ))}
+      <button onClick={() => history.push('./profile')}>Visit Profile</button>
     </div>
   );
 }

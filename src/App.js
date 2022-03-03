@@ -3,6 +3,7 @@ import { BrowserRouter as Router, NavLink, Route, Switch, Redirect } from 'react
 
 import AuthPage from './AuthPage';
 import GamePage from './GamePage';
+import Profile from './Profile';
 import SelectionPage from './SelectionPage.js';
 import LeaderboardPage from './LeaderboardPage';
 import About from './About';
@@ -14,7 +15,6 @@ import { logout, fetchUserProfile } from './services/fetch-utils';
 function App() {
   const [user, setUser] = useState(localStorage.getItem('supabase.auth.token'));
   const [token, setToken] = useState('');
-  // const [gamePlaylists, setGamePlaylists] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
 
   useEffect(() => {
@@ -24,7 +24,6 @@ function App() {
       user_id
         ? (profile = await fetchUserProfile(user_id.currentSession.user.id))
         : (profile = null);
-      console.log(user_id);
       setUserProfile(profile);
     };
     getProfile();
@@ -48,6 +47,9 @@ function App() {
           </Route>
           <Route exact path="/about">
             {user ? <About /> : <Redirect to="/" />}
+          </Route>
+          <Route exact path="/profile">
+            {user ? <Profile userProfile={userProfile} token={token} /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/">
             {user ? <Redirect to="/selection" /> : <AuthPage setUser={setUser} />}
