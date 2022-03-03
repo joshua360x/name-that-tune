@@ -39,6 +39,10 @@ export default function LeaderboardPage() {
         ? (acc[curr.username].rounds = acc[curr.username].rounds + curr.rounds)
         : (acc[curr.username].rounds = curr.rounds);
 
+      // acc[curr.username].pointsPerRound
+      //   ? (acc[curr.username].pointsPerRound = acc[curr.username].rounds + curr.rounds)
+      //   : (acc[curr.username].rounds = curr.rounds);
+
       return acc;
     }, {});
 
@@ -55,7 +59,8 @@ export default function LeaderboardPage() {
         username: mungedDataPoint[0],
         totalPoints: mungedDataPoint[1].totalPoints,
         totalGames: mungedDataPoint[1].totalGames,
-        rounds: mungedDataPoint[1].rounds
+        rounds: mungedDataPoint[1].rounds,
+        pointsPerRound: Math.floor((mungedDataPoint[1].totalPoints / (mungedDataPoint[1].rounds * 100)) * 100)
       };
     });
 
