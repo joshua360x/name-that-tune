@@ -9,7 +9,7 @@ export default function GamePage({ token, userProfile }) {
   const [tracks, setTracks] = useState(null);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [userGuess, setUserGuess] = useState('');
-  const [tracksShuffled, setTracksShufffled] = useState([]);
+  // const [tracksShuffled, setTracksShufffled] = useState([]);
   const [counter, setCounter] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
   const [countDownSeconds, setCountDownSeconds] = useState(30);

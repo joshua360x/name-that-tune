@@ -35,10 +35,11 @@ export default function LeaderboardPage() {
     const mungedData = Object.entries(newLeaders);
     // console.log(mungedData);
     setMungedLeaders(mungedData);
-  }, []);
+  }, [leaders]);
 
   return (
     <div className="leaderboard">
+      <h2>Leaderboard</h2>
       {mungedLeaders.map((leader, i) => {
         return (
           <div key={i} className="leader-div">
