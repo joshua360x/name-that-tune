@@ -60,13 +60,13 @@ export default function LeaderboardPage() {
         totalPoints: mungedDataPoint[1].totalPoints,
         totalGames: mungedDataPoint[1].totalGames,
         rounds: mungedDataPoint[1].rounds,
-        pointsPerRound: Math.floor((mungedDataPoint[1].totalPoints / (mungedDataPoint[1].rounds * 100)) * 100)
+        pointsPerRound: Math.round((mungedDataPoint[1].totalPoints / (mungedDataPoint[1].rounds * 100)) * 100)
       };
     });
 
     console.log(newData);
 
-    const sortedData = newData.sort((a, b) => a.totalPoints - b.totalPoints).reverse();
+    const sortedData = newData.sort((a, b) => a.pointsPerRound - b.pointsPerRound).reverse();
     console.log(sortedData);
 
 
@@ -96,6 +96,7 @@ export default function LeaderboardPage() {
                   <TableCell align="right">Rounds</TableCell>
                   <TableCell align="right">Total Games</TableCell>
                   <TableCell align="right">Total Points</TableCell>
+                  <TableCell align="right">Points Per Round</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -110,6 +111,7 @@ export default function LeaderboardPage() {
                     <TableCell align="right">{row.rounds}</TableCell>
                     <TableCell align="right">{row.totalGames}</TableCell>
                     <TableCell align="right">{row.totalPoints}</TableCell>
+                    <TableCell align="right">{row.pointsPerRound}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
