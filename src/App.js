@@ -34,7 +34,17 @@ function App() {
     <div className="App">
       <Router>
         <header>
-          <button onClick={logout}>Log Out</button>
+          <ul className='nav-list'>
+            <li>
+              <NavLink to='/selection'>Selection</NavLink>
+            </li>
+            <li>
+              <button onClick={logout}>Log Out</button>
+            </li>
+            <li>
+              <NavLink to='/leaderboard'>Leaderboard</NavLink>
+            </li>
+          </ul>
         </header>
         <Switch>
           <Route exact path="/selection">
