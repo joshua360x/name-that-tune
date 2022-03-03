@@ -139,6 +139,11 @@ html, body, #root, .App {
 }
 
 
+
+.song-hidden {
+  display: none;
+}
+
 /* CSS FOR GAME SELECTION */
 
 .nav-list {

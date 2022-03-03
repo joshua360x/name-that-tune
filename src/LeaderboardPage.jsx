@@ -97,7 +97,7 @@ export default function LeaderboardPage() {
                   <TableCell align="right">Rounds</TableCell>
                   <TableCell align="right">Total Games</TableCell>
                   <TableCell align="right">Total Points</TableCell>
-                  <TableCell align="right">Points Per Round</TableCell>
+                  <TableCell align="right">Percentage Points Per Round</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

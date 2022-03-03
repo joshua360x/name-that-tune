@@ -9,11 +9,15 @@ import About from './About';
 // import SpotifyPlaylist from './SpotifyPlaylist';
 
 import { useState, useEffect } from 'react';
-import { logout, fetchUserProfile } from './services/fetch-utils'; 
+
+import { logout, fetchUserProfile } from './services/fetch-utils';
+import Song from './Song';
+
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('supabase.auth.token'));
   const [token, setToken] = useState('');
+  const [joshFavSong, setJoshFavSong] = useState('');
   // const [gamePlaylists, setGamePlaylists] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
 
@@ -34,6 +38,7 @@ function App() {
     <div className="App" style={{ background: 'url(/background.jpeg)' }}>
       <Router>
         <header>
+
           { user &&
           <ul className='nav-list'>
             <li>
@@ -45,8 +50,12 @@ function App() {
             <li>
               <NavLink className='link' to='/leaderboard'>Leaderboard</NavLink>
             </li>
+            <li>
+               <NavLink className='link' to="/about">About</NavLink> 
+            </li>
           </ul>
           }
+
         </header>
         <Switch>
           <Route exact path="/selection">
@@ -59,13 +68,16 @@ function App() {
             {user ? <LeaderboardPage /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/about">
-            {user ? <About /> : <Redirect to="/" />}
+            {user ? <About joshFavSong={joshFavSong} /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/">
             {user ? <Redirect to="/selection" /> : <AuthPage setUser={setUser} />}
           </Route>
         </Switch>
       </Router>
+      <div className="song-hidden">
+        {token && <Song token={token} setJoshFavSong={setJoshFavSong} />}
+      </div>
     </div>
   );
 }
