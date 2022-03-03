@@ -14,6 +14,7 @@ class Josh extends React.Component {
   show() {
     this.setState({ visible: true });
     const audio = document.querySelector('#audioFavSong');
+    this.props.joshFavSong && audio.load();
     this.props.joshFavSong && audio.play();
   }
 
@@ -32,7 +33,7 @@ class Josh extends React.Component {
           <div>
             <p>Name: Joshua Williams</p>
             <p>Title: Software Engineer</p>
-            <p>Genre: Genre</p>
+            <p>Genre: Gosepl</p>
           </div>
         </div>
 
