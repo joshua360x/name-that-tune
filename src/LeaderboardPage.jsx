@@ -14,52 +14,6 @@ import Paper from '@mui/material/Paper';
 export default function LeaderboardPage() {
   const [leaders, setLeaders] = useState([]);
   const [mungedLeaders, setMungedLeaders] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-
-
-  // default table information 
-
-  // const CompactCell = props => <Table.Cell {...props} style={{ padding: 4 }} />;
-  // const CompactHeaderCell = props => (
-  //   <Table.HeaderCell {...props} style={{ padding: 4, backgroundColor: '#3498ff', color: '#fff' }} />
-  // );
-
-  // const defaultColumns = [
-  //   {
-  //     key: 'totalPoints',
-  //     label: 'Total Points',
-  //     fixed: true,
-  //     width: 130
-  //   },
-  //   {
-  //     key: 'rounds',
-  //     label: 'Rounds',
-  //     width: 123
-  //   },
-  //   {
-  //     key: 'totalGames',
-  //     label: 'Total Games',
-  //     width: 123
-  //   }
-  // ];
-
-
-
-  // // TABLE Information
-  // const data = mungedLeaders;
-  // const [loading, setLoading] = React.useState(false);
-  // const [compact, setCompact] = React.useState(true);
-  // const [bordered, setBordered] = React.useState(true);
-  // const [noData, setNoData] = React.useState(false);
-  // const [showHeader, setShowHeader] = React.useState(true);
-  // const [autoHeight, setAutoHeight] = React.useState(false);
-  // const [hover, setHover] = React.useState(true);
-  // const [columnKeys, setColumnKeys] = React.useState(defaultColumns.map(column => column.key));
-
-  // const columns = defaultColumns.filter(column => columnKeys.some(key => key === column.key));
-  // const CustomCell = compact ? CompactCell : Table.Cell;
-  // const CustomHeaderCell = compact ? CompactHeaderCell : Table.HeaderCell;
 
 
   useEffect(() => {
@@ -115,7 +69,6 @@ export default function LeaderboardPage() {
 
 
     setMungedLeaders(sortedData);
-    setLoading(false);
   }, [leaders]);
 
 
