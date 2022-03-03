@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { insertLeaderBoard } from './services/fetch-utils';
 
-export default function GamePage({ token }) {
+export default function GamePage({ token, userProfile }) {
+  console.log(userProfile);
   const netlifyUrl = '/.netlify/functions/spotify-playlist-items';
   const [tracks, setTracks] = useState(null);
   const [isGameStarted, setIsGameStarted] = useState(false);
@@ -54,11 +56,14 @@ export default function GamePage({ token }) {
 
     setCountDownSeconds(30);
     setAvailablePoints(100);
+    counter + 1 === tracks.length &&
+      (await insertLeaderBoard({
+        username: userProfile.username,
+        user_id: userProfile.user_id,
+        score: totalPoints,
+        rounds: tracks.length,
+      }));
   }
-
-  // useEffect(() => {
-  //   console.log(totalPoints);
-  // }, [totalPoints]);
 
   function handleStartGame() {
     setIsGameStarted(true);
@@ -66,12 +71,15 @@ export default function GamePage({ token }) {
 
     setPointsTimer(setInterval(decrementPoints, 5000));
   }
+
   function decrementAndDisplayTimer() {
     setCountDownSeconds((countDownSeconds) => countDownSeconds - 1);
   }
+
   function decrementPoints() {
     setAvailablePoints((availablePoints) => availablePoints - 10);
   }
+
   useEffect(() => {
     !isGameStarted && clearInterval(timer);
     !isGameStarted && clearInterval(pointsTimer);

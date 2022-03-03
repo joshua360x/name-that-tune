@@ -6,8 +6,6 @@ export const fetchAllPlaylists = async () => {
   return checkError(response);
 };
 
-
-
 // SUPABASE AUTH STUFF
 
 export function getUser() {
@@ -28,22 +26,22 @@ export function redirectIfLoggedIn() {
 
 export async function signupUser(email, password, username) {
   const response = await client.auth.signUp({ email, password });
-  if (response.user) {  
+  if (response.user) {
     await createProfile(username);
   }
   return response.user;
-
-
-
 }
 
 export async function createProfile(username) {
-  const response = await client
-    .from('profiles')
-    .insert({ username });
-    
+  const response = await client.from('profiles').insert({ username });
+
   return checkError(response);
 }
+
+export const fetchUserProfile = async (user_id) => {
+  const response = await client.from('profiles').select().match({ user_id }).single();
+  return checkError(response);
+};
 
 export async function signInUser(email, password) {
   const response = await client.auth.signIn({ email, password });
@@ -56,3 +54,8 @@ export async function logout() {
 
   return (window.location.href = '../');
 }
+
+export const insertLeaderBoard = async (stats) => {
+  const response = await client.from('leaderboards').insert(stats);
+  return checkError(response);
+};
