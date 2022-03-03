@@ -16,14 +16,11 @@ function App() {
   const [token, setToken] = useState('');
   // const [gamePlaylists, setGamePlaylists] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
-  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const getProfile = async () => {
-      // setLoading(true);
       let profile;
       const user_id = JSON.parse(user);
-      // console.log(user_id.currentSession);
       user_id
         ? (profile = await fetchUserProfile(user_id.currentSession.user.id))
         : (profile = null);
@@ -31,7 +28,6 @@ function App() {
       setUserProfile(profile);
     };
     getProfile();
-    // user && userProfile && setLoading(false);
   }, []);
 
   return (

@@ -59,3 +59,8 @@ export const insertLeaderBoard = async (stats) => {
   const response = await client.from('leaderboards').insert(stats);
   return checkError(response);
 };
+
+export const fetchLeaders = async () => {
+  const response = await client.from('leaderboards').select();
+  return checkError(response);
+};

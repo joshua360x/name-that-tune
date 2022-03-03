@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { insertLeaderBoard } from './services/fetch-utils';
 
@@ -17,6 +18,7 @@ export default function GamePage({ token, userProfile }) {
   const [pointsTimer, setPointsTimer] = useState('');
   const [isCorrectGuess, setIsCorrectGuess] = useState(false);
   const params = useParams();
+  const history = useHistory();
 
   function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -43,6 +45,14 @@ export default function GamePage({ token, userProfile }) {
     fetchPlayListsFromSpotify();
   }, [token, params.id]);
 
+  const handleLeaderboardClick = () => {
+    history.push('/leaderboard');
+  };
+
+  const handleChooseNewGameClick = () => {
+    history.push('/selection');
+  };
+
   async function handleSubmit(e) {
     e.preventDefault();
     setIsGameStarted(false);
@@ -63,6 +73,7 @@ export default function GamePage({ token, userProfile }) {
         score: totalPoints,
         rounds: tracks.length,
       }));
+    setUserGuess('');
   }
 
   function handleStartGame() {
@@ -88,13 +99,13 @@ export default function GamePage({ token, userProfile }) {
   return (
     <div>
       Welcome to GamePage
-      <button onClick={handleStartGame}>Begin Round</button>
+      {!isGameStarted && <button onClick={handleStartGame}>Begin Round</button>}
       {counter !== 0 && <h2>{isCorrectGuess ? 'CORRECT!!!!' : 'BUMMER YOU FAILED:('}</h2>}
       {counter === tracks?.length ? (
         <div className="completed-game-state">
           <p>{`CONGRATS YOU'VE COMPLETED ${tracks?.length} ROUNDS. Your total points were ${totalPoints}. Great job you nerd!`}</p>
-          <button>Choose New Game</button>
-          <button>Go to Leader Board</button>
+          <button onClick={handleChooseNewGameClick}>Choose New Game</button>
+          <button onClick={handleLeaderboardClick}>Go to Leader Board</button>
         </div>
       ) : (
         <div className="current-game-state">
@@ -126,7 +137,7 @@ export default function GamePage({ token, userProfile }) {
               </div>
             ))}
         </label>
-        <button>Submit Guess</button>
+        {userGuess ? <button>Submit Guess</button> : <button>Skip</button>}
       </form>
     </div>
   );
