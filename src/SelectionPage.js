@@ -24,12 +24,15 @@ export default function SelectionPage({ setToken }) {
   }, []);
 
   return (
-    <div>
-      { playlists.map((playlistItem, i) => <Link to={`/game/${playlistItem.playlist_id}`} key={playlistItem + i}>
-        <p>{ playlistItem.playlist_name }</p>
-
-      </Link>
-      )}
+    <div className='selection-page'>
+      <h2>Trivia Round: Choose Your Game</h2>
+      <p>Choose your playlist to initiate a game. You will have 30 seconds to guess the song name. As the clock ticks, your points go down. Good luck music nerds!</p>
+      <div className='game-choices'>
+        { playlists.map((playlistItem, i) => <Link to={`/game/${playlistItem.playlist_id}`} key={playlistItem + i}>
+          <div>{ playlistItem.playlist_name }</div>
+        </Link>
+        )}
+      </div>
     </div>
   );
 }

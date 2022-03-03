@@ -37,13 +37,13 @@ function App() {
           { user &&
           <ul className='nav-list'>
             <li>
-              <NavLink to='/selection'>Selection</NavLink>
+              <NavLink className='link' to='/selection'>Selection</NavLink>
             </li>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button className='logout-button' onClick={logout}>Log Out</button>
             </li>
             <li>
-              <NavLink to='/leaderboard'>Leaderboard</NavLink>
+              <NavLink className='link' to='/leaderboard'>Leaderboard</NavLink>
             </li>
           </ul>
           }

@@ -51,6 +51,8 @@ html, body, #root, .App {
   }
 }
 
+/* AUTH PAGE CSS */
+
 .auth {
   display: flex;
   flex-direction: column;
@@ -140,14 +142,98 @@ html, body, #root, .App {
   display: block;
 }
 
+
+/* CSS FOR GAME SELECTION */
+
 .nav-list {
   list-style-type: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 30px;
+  /* text-decoration: none; */
 }
 
 .nav-list li {
-  margin: 5px;
+  margin: 15px;
+  text-decoration: none;
 }
 
+.nav-list li:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+.link {
+  text-decoration: none;
+
+  margin: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 30px;
+  /* color: rgb(85,197,212); */
+  background-color: rgb(247,238,64);
+  border: 1px solid black;
+  height: 45px;
+  box-shadow: 8px 8px #f4a906;
+  padding: 7px;
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+
+.logout-button {
+  margin: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 30px;
+  /* color: rgb(85,197,212); */
+  background-color: rgb(247,238,64);
+  border: 3px solid black;
+  height: 55px;
+  width: 200px;
+  /* box-shadow: 8px 8px #f4a906; */
+  padding: 7px;
+  border-top-color: blue;
+  border-right-color: red;
+  border-bottom-color: green;
+  border-left-color: purple;
+  
+}
+
+.logout-button:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+.selection-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.selection-page h2 {
+  margin-top: 70px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 30px;
+  color: rgb(85,197,212);
+  box-shadow: 6px 6px rgb(255, 187, 14);
+  text-shadow: 1px 1px rgb(255,101,195);
+}
+
+.selection-page p {
+  width: 500px;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: #61dafb;
+  padding: 10px;
+  font-family: 'Permanent Marker', cursive;
+}
+
+.game-choices {
+  display: grid;
+  grid-template-columns: 10rem 10rem;
+  grid-gap: 3rem;
+}
