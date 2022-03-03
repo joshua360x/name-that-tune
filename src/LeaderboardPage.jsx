@@ -157,7 +157,7 @@ export default function LeaderboardPage() {
 
   return (
     <div className="leaderboard">
-      leaderboar
+      <h3>Leaderboard</h3>
       <div className="leader-div">
         {/* <h3>{leader[0]}</h3>
             <p>{`Total Points ${leader[1].totalPoints}`} </p>
