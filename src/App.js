@@ -28,7 +28,7 @@ function App() {
       setUserProfile(profile);
     };
     getProfile();
-  }, []);
+  }, [user]);
 
   return (
     <div className="App">

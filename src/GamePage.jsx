@@ -87,7 +87,7 @@ export default function GamePage({ token, userProfile }) {
   useEffect(() => {
     !isGameStarted && clearInterval(timer);
     !isGameStarted && clearInterval(pointsTimer);
-  }, [isGameStarted]);
+  }, [isGameStarted, timer, pointsTimer]);
   
 
   
