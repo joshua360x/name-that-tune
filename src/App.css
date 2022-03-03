@@ -134,10 +134,6 @@ html, body, #root, .App {
   width: 200px;
 }
 
-.login-form {
-
-}
-
 .track {
   display: block;
 }
@@ -223,13 +219,21 @@ html, body, #root, .App {
   text-shadow: 1px 1px rgb(255,101,195);
 }
 
-.selection-page p {
+.blurb {
   width: 500px;
   border: 1px solid black;
   border-radius: 20px;
   background-color: #61dafb;
   padding: 10px;
   font-family: 'Permanent Marker', cursive;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.blurb img {
+  width: 200px;
+  padding: 10px
 }
 
 .game-choices {
@@ -267,4 +271,89 @@ a {
 a:hover {
   animation: shake 0.5s;
   animation-iteration-count: infinite;
+}
+
+/* GAME PAGE CSS */
+
+.game-page h2 {
+  /* margin-top: 70px; */
+  font-family: 'Permanent Marker', cursive;
+  font-size: 30px;
+  color: rgb(85,197,212);
+  box-shadow: 6px 6px rgb(255, 187, 14);
+  text-shadow: 1px 1px rgb(255,101,195);
+}
+
+.current-game-state {
+  /* margin-top: 0px; */
+
+  width: 580px;
+  /* height: 60px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  /* padding: 20px; */
+}
+
+.form-and-stuff form {
+  font-family: 'Permanent Marker', cursive;
+  color: #eb2ec5;
+  text-shadow: 1px 1px #61dafb;
+}
+
+.game-button {
+  margin: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 25px;
+  /* color: rgb(85,197,212); */
+  background-color: rgb(255,101,195);
+  border: 1px solid black;
+  height: 50px;
+  width: 200px;
+  box-shadow: 8px 8px #eb2ec5;
+  margin: 5px;
+  text-align: center;
+  text-justify: center;
+}
+
+.game-button:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+.final-button {
+  margin: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 25px;
+  /* color: rgb(85,197,212); */
+  background-color: rgb(255,101,195);
+  border: 1px solid black;
+  height: 90px;
+  width: 200px;
+  box-shadow: 8px 8px #eb2ec5;
+  margin: 5px;
+  text-align: center;
+  text-justify: center;
+}
+
+.final-button:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+.correct-wrong {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.correct-wrong img {
+  /* width: 50px; */
+  height: 80px;
 }

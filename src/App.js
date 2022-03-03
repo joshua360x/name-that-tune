@@ -52,7 +52,7 @@ function App() {
           <Route exact path="/selection">
             {user ? <SelectionPage setToken={setToken} /> : <Redirect to="/" />}
           </Route>
-          <Route exact path="/game/:id">
+          <Route exact path="/game/:id/:name">
             {user ? <GamePage token={token} userProfile={userProfile} /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/leaderboard">
