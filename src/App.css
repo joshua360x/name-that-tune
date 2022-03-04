@@ -157,7 +157,7 @@ html, body, #root, .App {
 }
 
 .nav-list li {
-  margin: 15px;
+  margin-top: 36px;
   text-decoration: none;
 }
 
