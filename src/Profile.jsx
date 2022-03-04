@@ -1,20 +1,21 @@
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
+import { createUserPlaylist, fetchMyCreatedPlaylists } from './services/fetch-utils';
 import './Profile.css';
+import { logDOM } from '@testing-library/react';
 
 export default function Profile({ userProfile, token }) {
   const baseNetlifyUrl = '/.netlify/functions';
   const netlifyUrlFeaturedPlaylists = `/spotify-featured-playlists`;
-  const netlifyUrlCreatePlaylist = `/spotify-abstract-event-handler`;
-  //   const netlifyUrlGenre = `/spotify-genre-seeds`;
-  //   const netlifyUrlSearch = `/search`;
-  //   const [genres, setGenres] = useState(null);
-  //   const [userGenreChoice, setGenreChoice] = useState('');
+
   const [featuredPlaylists, setFeaturedPlaylists] = useState(null);
   const [featuredPlaylistSelection, setFeaturedSelection] = useState('');
   const [featuredPlaylistTracks, setFeaturedTracks] = useState('');
   const [checkedState, setCheckedState] = useState([]);
-  const [userCreatedPlaylist, setUserCreatedPlaylist] = useState([]);
+  const [userCreatedPlaylist, setUserCreatedPlaylist] = useState(null);
+  const [playlistName, setPlaylistName] = useState('');
+
+  const [myPlaylists, setMyPlaylists] = useState();
 
   useEffect(() => {
     const getFeaturedPlaylists = async () => {
@@ -25,6 +26,14 @@ export default function Profile({ userProfile, token }) {
       setFeaturedPlaylists(json.data.playlists.items);
     };
     getFeaturedPlaylists();
+  }, []);
+
+  useEffect(() => {
+    const getMyPlaylists = async () => {
+      const response = await fetchMyCreatedPlaylists(userProfile.user_id);
+      setMyPlaylists(response);
+    };
+    getMyPlaylists();
   }, []);
 
   useEffect(() => {
@@ -43,44 +52,11 @@ export default function Profile({ userProfile, token }) {
     featuredPlaylistSelection && fetchPlayListsFromSpotify();
   }, [token, featuredPlaylistSelection]);
 
-  //   useEffect(() => {
-  //     const getGenreslists = async () => {
-  //       const response = await fetch(`${baseNetlifyUrl}${netlifyUrlGenre}?token=${token}`);
-  //       const json = await response.json();
-  //       //   setGenres(json.data.playlists.items);
-  //       console.log(json);
-  //     };
-  //     getGenreslists();
-  //   }, [userGenreChoice]);
-  //   // WORK HERE!!!!!! DEPENDANCY SHOULD BE THE STATE OF LAST DROPDOWN VALUE THE USER CHOSE
-
-  //   useEffect(() => {
-  //     const getSearchResults = async () => {
-  //       const response = await fetch(
-  //         `/.netlify/spotify-abstract-event-handler?token=${token}?endpoint=/search${userGenreChoice}`
-  //       );
-  //       const json = await response.json();
-  //       //   setGenres(json.data.playlists.items);
-  //       console.log(json);
-  //     };
-  //     getSearchResults();
-  //   }, [userGenreChoice]);
-  //   // WORK HERE!!!!!! DEPENDANCY SHOULD BE THE STATE OF LAST DROPDOWN VALUE THE USER CHOSE
-
   useEffect(() => {
-    async function fetchPlayListsFromSpotify() {
-      const response = await fetch(
-        `${baseNetlifyUrl}${netlifyUrlFeaturedPlaylists}?endpoint='/users/31zjivtjpe3q44ogpzbku45qgu4m/playlists'&token=${token}`
-      );
-      const json = await response.json();
-      const approvedTracks = [];
-      await json.data.items.map((track) => {
-        track.track.preview_url ? approvedTracks.push(track) : null;
-      });
-      setFeaturedTracks(approvedTracks);
-      setCheckedState(new Array(approvedTracks.length).fill(false));
+    async function insertPlayListToSupabase() {
+      await createUserPlaylist(userCreatedPlaylist, playlistName);
     }
-    featuredPlaylistSelection && fetchPlayListsFromSpotify();
+    userCreatedPlaylist && insertPlayListToSupabase();
   }, [userCreatedPlaylist]);
 
   const handleFeaturedChange = async (e) => {
@@ -91,9 +67,11 @@ export default function Profile({ userProfile, token }) {
     e.preventDefault();
     const newPlaylist = [];
     await featuredPlaylistTracks.map((track, i) => {
-      checkedState[i] ? newPlaylist.push(track) : null;
+      checkedState[i] ? newPlaylist.push(track.track.preview_url) : null;
     });
     setUserCreatedPlaylist(newPlaylist);
+    const response = await fetchMyCreatedPlaylists(userProfile.user_id);
+    setMyPlaylists([...response]);
   };
 
   const handleSongSelect = async (position) => {
@@ -122,6 +100,7 @@ export default function Profile({ userProfile, token }) {
           <h1>loading</h1>
         )}
       </label>
+
       <div className="featured-playlist-results-container">
         <h3>Featured Playlist Results</h3>
         <form className="featured-playlist-results-container" onSubmit={handleCreateUserPlaylist}>
@@ -143,9 +122,24 @@ export default function Profile({ userProfile, token }) {
                 );
               })}
           </div>
+          <br></br>
+          <label>
+            {`Playlist Name : `}
+            <input onChange={(e) => setPlaylistName(e.target.value)}></input>
+          </label>
+          <br></br>
           <button>Create Playlist</button>
         </form>
       </div>
+      {myPlaylists
+        ? myPlaylists.map((item, i) =>
+            item.playlist.map((track, m) => {
+              console.log(item);
+              console.log(track);
+              return <audio key={i + m} src={track} controls></audio>;
+            })
+          )
+        : null}
     </div>
   );
 }

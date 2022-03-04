@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, NavLink, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import AuthPage from './AuthPage';
 import GamePage from './GamePage';
@@ -37,7 +37,11 @@ function App() {
         </header>
         <Switch>
           <Route exact path="/selection">
-            {user ? <SelectionPage setToken={setToken} /> : <Redirect to="/" />}
+            {user ? (
+              <SelectionPage setToken={setToken} token={token} userProfile={userProfile} />
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
           <Route exact path="/game/:id">
             {user ? <GamePage token={token} userProfile={userProfile} /> : <Redirect to="/" />}

@@ -64,3 +64,13 @@ export const fetchLeaders = async () => {
   const response = await client.from('leaderboards').select();
   return checkError(response);
 };
+
+export const createUserPlaylist = async (playlist, playlistName) => {
+  const response = await client.from('user_playlists').insert({ playlist, name: playlistName });
+  return checkError(response);
+};
+
+export const fetchMyCreatedPlaylists = async (user_id) => {
+  const response = await client.from('user_playlists').select().match({ user_id });
+  return checkError(response);
+};

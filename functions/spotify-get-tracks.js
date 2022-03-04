@@ -2,12 +2,13 @@ require('dotenv').config();
 const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
+  const ids = event.queryStringParameters.ids;
   const token = event.queryStringParameters.token;
   console.log(token, 'token');
   const baseUrl = 'https://api.spotify.com/v1';
-  const intendedEndpoint = baseUrl + `${event.queryStringParameters.endpoint}?market=US`;
+  const playlist = `${baseUrl}/tracks?market=us$ids=${ids}`;
   try {
-    const response = await fetch(intendedEndpoint, {
+    const response = await fetch(playlist, {
       headers: {
         Accept: 'application/json',
         ['Content-Type']: 'application/json',
@@ -16,6 +17,9 @@ exports.handler = async (event, context) => {
     });
     const data = await response.json();
     const json = JSON.stringify({ data });
+
+    console.log(json);
+
     return {
       statusCode: 200,
       body: json,

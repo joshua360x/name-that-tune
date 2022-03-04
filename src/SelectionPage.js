@@ -3,7 +3,7 @@ import { fetchAllPlaylists } from './services/fetch-utils';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
-export default function SelectionPage({ setToken }) {
+export default function SelectionPage({ setToken, token, userProfile }) {
   const [playlists, setPlaylists] = useState([]);
   const history = useHistory();
   // const [tracks, setTracks] = useState([]);
