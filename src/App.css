@@ -194,7 +194,7 @@ html, body, #root, .App {
   font-size: 30px;
   /* color: rgb(85,197,212); */
   background-color: rgb(247,238,64);
-  border: 3px solid black;
+  border: 6px solid black;
   height: 55px;
   width: 200px;
   /* box-shadow: 8px 8px #f4a906; */
@@ -449,4 +449,20 @@ a:hover {
 
 .wiz img {
   height: 80px;
+}
+
+.outer-count-bar-container {
+  height: 30px;
+  width: 400px;
+  background-color: rgb(255,101,195);
+  border: 1px solid #61dafb;
+  border-radius: 20px;
+  margin-top: 18px;
+}
+
+.inner-count-bar-container {
+  height: 100%;
+  background-color: #61dafb;
+  border: 1px solid #61dafb;
+  border-radius: 20px;
 }

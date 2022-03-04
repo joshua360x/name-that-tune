@@ -39,7 +39,7 @@ class Josh extends React.Component {
           {/* <button>show</button> */}
           <img className='profile-pic' src="/cloaked-figure-on-horseback.svg" alt="Josh" />
           <div className='about-text'>
-            <p>Name: Joshua Williams</p>
+            <p>Name: Josh W</p>
             <p>Title: Software Engineer</p>
             <p>Genre: Gospel</p>
           </div>

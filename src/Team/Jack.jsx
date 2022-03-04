@@ -40,18 +40,18 @@ class Jack extends React.Component {
           {/* <button>show</button> */}
           <img className='profile-pic' src="/anubis.svg" alt="Josh" />
           <div className='about-text'>
-            <p>Name: Jack K</p>
+            <p>Name: Cadillac Jack</p>
             <p>Title: Software Engineer</p>
             <p>Genre: Classic Rock</p>
           </div>
         </div>
 
         <Rodal visible={this.state.visible} onClose={this.hide.bind(this)} width={550} height={250} customStyles={customStyles}>
-          <div className='dev-name'>Jack K</div>
+          <div className='dev-name'>Cadillac Jack</div>
           <div className='wrapper-music'>
             <img className='profile-pic' src="/anubis.svg" alt="Clay" />
             <p>
-              My name is Jack. I ...{' '}
+            My name is Cadillac Jack. I am an aspiring software developer with goals of opening community recording studios. I have loved music since I was a kid and my mother introduced me to Jimi Hendrix and Led Zeppelin. I play a little guitar, but mainly just noodle around to relax.{' '}
             </p>
             {this.props.jackFavSong && (
               <audio className="audioFavSong1" src={this.props.jackFavSong}></audio>

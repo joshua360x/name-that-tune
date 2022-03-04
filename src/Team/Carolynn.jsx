@@ -42,7 +42,7 @@ class Carolynn extends React.Component {
           <div className='about-text'>
             <p>Name: Carolynn</p>
             <p>Title: Software Engineer</p>
-            <p>Genre: 90s RnB</p>
+            <p>Fav Song: Bohemian Rhapsody</p>
           </div>
         </div>
 
@@ -53,7 +53,7 @@ class Carolynn extends React.Component {
           <div className='wrapper-music'>
             <img className='profile-pic' src="/plague-doctor-profile.png" alt="Carolynn" />
             <p>
-              My name is Carolynn. I ....{' '}
+            Hi my name is Carolynn Fleming I’m A full stack developer, and I love music. The development of this app allows users to have a fun time learning and testing their musical knowledge.{' '}
             </p>
             {this.props.carolynnFavSong && (
               <audio className="audioFavSong3" src={this.props.carolynnFavSong}></audio>
