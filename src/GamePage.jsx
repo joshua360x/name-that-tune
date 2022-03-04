@@ -74,6 +74,7 @@ export default function GamePage({ token, userProfile }) {
       }
     }
     ifTimeRunsOut();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countDownSeconds]);
   
 
