@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { fetchLeaders } from './services/fetch-utils';
-import './LeaderboardPage.css';
 // import { Table, Column, HeaderCell, Cell } from 'rsuite';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -81,14 +80,10 @@ export default function LeaderboardPage() {
 
   return (
     <div className="leaderboard">
-      <h3>Leaderboard</h3>
+      <h2>Leaderboard</h2>
       <div className="leader-div">
-
-
         {
           mungedLeaders &&
-
-
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>

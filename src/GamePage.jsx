@@ -150,7 +150,7 @@ export default function GamePage({ token, userProfile }) {
       {/* GAME COMPLETION MESSAGE + REDIRECT BUTTONS */}
       {counter === tracks?.length &&
         <div className="completed-game-state">
-          <h2>{`CONGRATS YOU'VE COMPLETED ${tracks?.length} ROUNDS. Your total points were ${totalPoints}. Great job you nerd!`}</h2>
+          <h2>{`CONGRATS YOU'VE COMPLETED ${tracks?.length} ROUNDS.`} <br></br>{`Your total points were ${totalPoints}.`} <br></br> Great job you nerd!</h2>
           <button className='final-button' onClick={handleChooseNewGameClick}>Choose New Game</button>
           <button className='final-button' onClick={handleLeaderboardClick}>Go to Leader Board</button>
         </div>

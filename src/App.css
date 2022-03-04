@@ -362,3 +362,26 @@ a:hover {
   /* width: 50px; */
   height: 80px;
 }
+
+/* LEADERBOARD CSS */
+
+.leaderboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.leaderboard h2 {
+  margin-top: 70px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 30px;
+  color: rgb(85,197,212);
+  box-shadow: 6px 6px rgb(255, 187, 14);
+  text-shadow: 1px 1px rgb(255,101,195);
+}
+
+.leader-div {
+  width: fit-content;
+  padding: 10px;
+}
