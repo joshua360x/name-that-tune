@@ -29,8 +29,11 @@ export default function About({ token }) {
 
 
   return (
-    <div>
-      <h2>Meet the Team </h2>
+    <div className='about-page'>
+      <div className='wiz'>
+        <img src='/king.png'></img>
+        <h2>Meet the Team </h2>
+      </div>
       <div className='devs'>
         <Josh joshFavSong={joshFavSong} />
         <Clay />

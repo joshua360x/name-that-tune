@@ -25,22 +25,30 @@ class Josh extends React.Component {
   }
 
   render() {
+    const customStyles = {
+      height: 'auto',
+      bottom: 'auto',
+      top: '30%',
+      backgroundColor: '#61dafb',
+      color: 'rgb(255,101,195)',
+    };
+
     return (
-      <div>
+      <div className='dev'>
         <div className="found" onClick={this.show.bind(this)}>
           {/* <button>show</button> */}
-          <img src="https://placebear.com/200/200" alt="Josh" />
-          <div>
+          <img className='profile-pic' src="/cloaked-figure-on-horseback.svg" alt="Josh" />
+          <div className='about-text'>
             <p>Name: Joshua Williams</p>
             <p>Title: Software Engineer</p>
             <p>Genre: Gospel</p>
           </div>
         </div>
 
-        <Rodal visible={this.state.visible} onClose={this.hide.bind(this)} width={550} height={250}>
-          <div>Josh Williams</div>
+        <Rodal visible={this.state.visible} onClose={this.hide.bind(this)} width={550} height={250} customStyles={customStyles}>
+          <div className='dev-name'>Josh Williams</div>
           <div className='wrapper-music'>
-            <img src="https://placebear.com/200/100" alt="Josh" />
+            <img className='profile-pic' src="/cloaked-figure-on-horseback.svg" alt="Josh" />
             <p>
               My name is Josh, software engineer by day and gospel artist by night. Grew up playing
               the guitar. Played in band from a young age, and decided to stick with it. When I am
