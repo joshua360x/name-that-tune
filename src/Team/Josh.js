@@ -1,6 +1,6 @@
 import React from 'react';
 import Rodal from 'rodal';
-import '../About.css';
+// import '../About.css';
 
 // include styles
 import 'rodal/lib/rodal.css';
@@ -33,7 +33,7 @@ class Josh extends React.Component {
           <div>
             <p>Name: Joshua Williams</p>
             <p>Title: Software Engineer</p>
-            <p>Genre: Gosepl</p>
+            <p>Genre: Gospel</p>
           </div>
         </div>
 
@@ -46,9 +46,9 @@ class Josh extends React.Component {
               the guitar. Played in band from a young age, and decided to stick with it. When I am
               not singing, I often do enjoy watching the rain mixed in with the classics.{' '}
             </p>
-            {this.props.joshFavSong && (
+            {this.props.joshFavSong ? (
               <audio id="audioFavSong" src={this.props.joshFavSong}></audio>
-            )}
+            ) : null }
           </div>
         </Rodal>
       </div>

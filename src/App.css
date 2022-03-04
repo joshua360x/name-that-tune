@@ -385,3 +385,16 @@ a:hover {
   width: fit-content;
   padding: 10px;
 }
+
+/* ABOUT CSS */
+
+.found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+
+.wrapper-music {
+  display: flex;
+}

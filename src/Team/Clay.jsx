@@ -1,6 +1,6 @@
 import React from 'react';
 import Rodal from 'rodal';
-import '../About.css';
+// import '../About.css';
 
 // include styles
 import 'rodal/lib/rodal.css';
