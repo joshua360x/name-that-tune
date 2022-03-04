@@ -14,7 +14,7 @@ class Jack extends React.Component {
   show() {
     this.setState({ visible: true });
     const audio = document.querySelector('.audioFavSong1');
-    // this.props.jackFavSong && audio.load();
+    this.props.jackFavSong && audio.load();
     this.props.jackFavSong && audio.play();
   }
 

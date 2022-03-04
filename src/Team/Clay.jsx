@@ -14,7 +14,7 @@ class Clay extends React.Component {
   show() {
     this.setState({ visible: true });
     const audio = document.querySelector('.audioFavSong');
-    // this.props.clayFavSong && audio.load();
+    this.props.clayFavSong && audio.load();
     this.props.clayFavSong && audio.play();
   }
 
