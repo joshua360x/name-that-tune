@@ -215,6 +215,12 @@ export default function GamePage({ token, userProfile }) {
             ? <button className='game-button'>Submit Guess</button> 
             : <button className='game-button'>Skip</button>}
         </form>
+        <div className="outer-count-bar-container">
+          <div
+            className="inner-count-bar-container"
+            style={{ width: `${countDownSeconds * 3.33333333333333}%` }}
+         ></div>
+        </div>
         <h2>
           {countDownSeconds < 10
             ? `Countdown Timer: 00:0${countDownSeconds}`

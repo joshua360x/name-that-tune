@@ -42,7 +42,7 @@ class Clay extends React.Component {
           <div className='about-text'>
             <p>Name: Clayton</p>
             <p>Title: Software Engineer</p>
-            <p>Genre: Soft Punk</p>
+            <p>Genre: Sad Boy Music</p>
           </div>
         </div>
 
@@ -51,7 +51,7 @@ class Clay extends React.Component {
           <div className='wrapper-music'>
             <img className='profile-pic' src="/pianist.png" alt="Clay" />
             <p>
-              My name is Clayton. I am a lifelong musician and whatever.{' '}
+              My name is Clayton. Try to make songs and records and stuff. Fav Artists: ELO, Grandaddy, Bill Callahan, Phil Elverum.{' '}
             </p>
             {this.props.clayFavSong && (
               <audio className="audioFavSong" src={this.props.clayFavSong}></audio>
