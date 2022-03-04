@@ -39,7 +39,12 @@ export async function createProfile(username) {
 }
 
 export const fetchUserProfile = async (user_id) => {
-  const response = await client.from('profiles').select().match({ user_id }).single();
+  const response = await client
+    .from('profiles')
+    .select()
+    .match({ user_id })
+    .single();
+
   return checkError(response);
 };
 
