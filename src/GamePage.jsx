@@ -66,6 +66,18 @@ export default function GamePage({ token, userProfile }) {
   }, [tracks, counter]);
   
 
+  //TRACKS COUNTDOWN SECONDS AND IF 0 RUNS HANDLE SUBMIT TO END ROUND
+  useEffect(() => {
+    async function ifTimeRunsOut() {
+      if (countDownSeconds <= 0) {
+        await handleSubmit();
+      }
+    }
+    ifTimeRunsOut();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countDownSeconds]);
+  
+
 //OLD 10 MULTIPLE CHOICE TRACKS
   // useEffect(() => {
   //   if (tracks) {
@@ -98,7 +110,9 @@ export default function GamePage({ token, userProfile }) {
   }
   
   async function handleSubmit(e) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     
     setIsGameStarted(false);
     
@@ -114,7 +128,9 @@ export default function GamePage({ token, userProfile }) {
     setCountDownSeconds(30);
     setAvailablePoints(100);
     setUserGuess('');
-    counter + 1 === tracks.length &&
+
+    counter + 1 === tracks.length && 
+    userProfile &&
     (await insertLeaderBoard({
       username: userProfile.username,
       user_id: userProfile.user_id,
@@ -134,7 +150,12 @@ export default function GamePage({ token, userProfile }) {
   
 
   function decrementTimer() {
-    setCountDownSeconds((countDownSeconds) => countDownSeconds - 1);
+    if (countDownSeconds > 0){ 
+      setCountDownSeconds((countDownSeconds) => countDownSeconds - 1);
+    }
+    else if (countDownSeconds === 0){
+      clearInterval(timer);
+    }
   }
   
   function decrementPoints() {
@@ -148,7 +169,7 @@ export default function GamePage({ token, userProfile }) {
       {/* GAME COMPLETION MESSAGE + REDIRECT BUTTONS */}
       {counter === tracks?.length &&
         <div className="completed-game-state">
-          <h2>{`CONGRATS YOU'VE COMPLETED ${tracks?.length} ROUNDS. Your total points were ${totalPoints}. Great job you nerd!`}</h2>
+          <h2>{`CONGRATS YOU'VE COMPLETED ${tracks?.length} ROUNDS.`} <br></br>{`Your total points were ${totalPoints}.`} <br></br> Great job you nerd!</h2>
           <button className='final-button' onClick={handleChooseNewGameClick}>Choose New Game</button>
           <button className='final-button' onClick={handleLeaderboardClick}>Go to Leader Board</button>
         </div>

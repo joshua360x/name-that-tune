@@ -11,15 +11,15 @@ import About from './About';
 import { useState, useEffect } from 'react';
 
 import { logout, fetchUserProfile } from './services/fetch-utils';
-import Song from './Song';
 
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('supabase.auth.token'));
   const [token, setToken] = useState('');
-  const [joshFavSong, setJoshFavSong] = useState('');
+  // const [joshFavSong, setJoshFavSong] = useState('');
   // const [gamePlaylists, setGamePlaylists] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
+  const netlifyUrlToken = '/.netlify/functions/spotify-oauth';
 
   useEffect(() => {
     const getProfile = async () => {
@@ -33,6 +33,18 @@ function App() {
     };
     getProfile();
   }, [user]);
+
+
+  useEffect(() => {
+    const getToken = async () => {
+      const response = await fetch(netlifyUrlToken);
+      const json = await response.json();
+      setToken(json);
+    };
+    getToken();
+  }, []);
+  
+
 
   return (
     <div className="App" style={{ background: 'url(/background.jpeg)' }}>
@@ -51,7 +63,7 @@ function App() {
               <NavLink className='link' to='/leaderboard'>Leaderboard</NavLink>
             </li>
             <li>
-               <NavLink className='link' to="/about">About</NavLink> 
+              <NavLink className='link' to="/about">About</NavLink> 
             </li>
           </ul>
           }
@@ -59,7 +71,7 @@ function App() {
         </header>
         <Switch>
           <Route exact path="/selection">
-            {user ? <SelectionPage setToken={setToken} /> : <Redirect to="/" />}
+            {user ? <SelectionPage/> : <Redirect to="/" />}
           </Route>
           <Route exact path="/game/:id/:name">
             {user ? <GamePage token={token} userProfile={userProfile} /> : <Redirect to="/" />}
@@ -68,16 +80,13 @@ function App() {
             {user ? <LeaderboardPage /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/about">
-            {user ? <About joshFavSong={joshFavSong} /> : <Redirect to="/" />}
+            {user ? <About token={token} /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/">
             {user ? <Redirect to="/selection" /> : <AuthPage setUser={setUser} />}
           </Route>
         </Switch>
       </Router>
-      <div className="song-hidden">
-        {token && <Song token={token} setJoshFavSong={setJoshFavSong} />}
-      </div>
     </div>
   );
 }

@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import GamePage from './GamePage';
 import { fetchAllPlaylists } from './services/fetch-utils';
 import { Link } from 'react-router-dom';
 
-export default function SelectionPage({ setToken }) {
+export default function SelectionPage() {
   const [playlists, setPlaylists] = useState([]);
   // const [tracks, setTracks] = useState([]);
 
-  const netlifyUrlToken = '/.netlify/functions/spotify-oauth';
+  // const netlifyUrlToken = '/.netlify/functions/spotify-oauth';
 
   useEffect(() => {
     async function fetchAndSetPlayLists() {
       const playlistsArray = await fetchAllPlaylists();
       setPlaylists(playlistsArray);
     }
-    const getToken = async () => {
-      const response = await fetch(netlifyUrlToken);
-      const json = await response.json();
-      setToken(json);
-    };
-    getToken();
+    // const getToken = async () => {
+    //   const response = await fetch(netlifyUrlToken);
+    //   const json = await response.json();
+    //   setToken(json);
+    // };
+    // getToken();
     fetchAndSetPlayLists();
   }, []);
 

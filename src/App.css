@@ -362,3 +362,89 @@ a:hover {
   /* width: 50px; */
   height: 80px;
 }
+
+/* LEADERBOARD CSS */
+
+.leaderboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.leaderboard h2 {
+  margin-top: 70px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 30px;
+  color: rgb(85,197,212);
+  box-shadow: 6px 6px rgb(255, 187, 14);
+  text-shadow: 1px 1px rgb(255,101,195);
+}
+
+.leader-div {
+  width: fit-content;
+  padding: 10px;
+}
+
+/* ABOUT CSS */
+
+.found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+
+.wrapper-music {
+  display: flex;
+}
+
+.profile-pic {
+  width: 100px;
+}
+
+.about-page h2 {
+  margin-top: 70px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 50px;
+  color: rgb(85,197,212);
+  /* box-shadow: 6px 6px rgb(255, 187, 14); */
+  text-shadow: 1px 1px rgb(255,101,195);
+}
+
+.devs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.dev {
+  border: 1px solid black;
+  background: #61dafb;
+  box-shadow: 4px 4px #282c34;
+  border-radius: 20px;
+}
+
+.about-text, .wrapper-music {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 15px;
+}
+
+.dev-name {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 20px;
+}
+
+
+.wiz {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.wiz img {
+  height: 80px;
+}
