@@ -14,7 +14,7 @@ class Josh extends React.Component {
   show() {
     this.setState({ visible: true });
     const audio = document.querySelector('#audioFavSong');
-    this.props.joshFavSong && audio.load();
+    // this.props.joshFavSong && audio.load();
     this.props.joshFavSong && audio.play();
   }
 
