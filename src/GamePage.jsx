@@ -114,7 +114,9 @@ export default function GamePage({ token, userProfile }) {
     setCountDownSeconds(30);
     setAvailablePoints(100);
     setUserGuess('');
-    counter + 1 === tracks.length &&
+
+    counter + 1 === tracks.length && 
+    userProfile &&
     (await insertLeaderBoard({
       username: userProfile.username,
       user_id: userProfile.user_id,

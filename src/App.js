@@ -51,7 +51,7 @@ function App() {
               <NavLink className='link' to='/leaderboard'>Leaderboard</NavLink>
             </li>
             <li>
-               <NavLink className='link' to="/about">About</NavLink> 
+              <NavLink className='link' to="/about">About</NavLink> 
             </li>
           </ul>
           }
