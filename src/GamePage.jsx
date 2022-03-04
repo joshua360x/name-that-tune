@@ -224,7 +224,8 @@ export default function GamePage({ token, userProfile }) {
       </div>
       ) : (
         // DISPLAY CORRECT OR INCORRECT
-        (counter !== 0 && isCorrectGuess) 
+        (counter === 0) ? null 
+        : (isCorrectGuess) 
             ? <div className='correct-wrong'><img src='/king.png'></img><h2>CORRECT!!!! </h2></div>
             : <div className='correct-wrong'><img src='/king.png'></img><h2>WRONG ANSWER! </h2></div>
       )
