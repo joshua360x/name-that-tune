@@ -25,7 +25,7 @@ export default function About({ token }) {
   }, [token, setJoshFavSong]);
 
   useEffect(() => {
-    async function fetchSong1FromSpotify() {
+    async function fetchSong2FromSpotify() {
       // console.log(token);
       const response = await fetch(`${netlifyUrl}?token=${token}&song_id=6MjNymJg3ENLx7msmLPD1P`);
       const json = await response.json();
@@ -33,11 +33,11 @@ export default function About({ token }) {
       // console.log(json.data);
       setClayFavSong(json.data.preview_url);
     }
-    fetchSong1FromSpotify();
+    fetchSong2FromSpotify();
   }, [token, setClayFavSong]);
 
   useEffect(() => {
-    async function fetchSong2FromSpotify() {
+    async function fetchSong3FromSpotify() {
       // console.log(token);
       const response = await fetch(`${netlifyUrl}?token=${token}&song_id=05f8Hg3RSfiPSCBQOtxl3i`);
       const json = await response.json();
@@ -45,11 +45,11 @@ export default function About({ token }) {
       // console.log(json.data);
       setJackFavSong(json.data.preview_url);
     }
-    fetchSong2FromSpotify();
+    fetchSong3FromSpotify();
   }, [token, setJackFavSong]);
 
   useEffect(() => {
-    async function fetchSongFromSpotify() {
+    async function fetchSong4FromSpotify() {
       // console.log(token);
       const response = await fetch(`${netlifyUrl}?token=${token}&song_id=6AFm3Wv9uNRZPQ1WtKSlcT`);
       const json = await response.json();
@@ -57,7 +57,7 @@ export default function About({ token }) {
       // console.log(json.data);
       setCarolynnFavSong(json.data.preview_url);
     }
-    fetchSongFromSpotify();
+    fetchSong4FromSpotify();
   }, [token, setCarolynnFavSong]);
 
   return (
