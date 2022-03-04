@@ -13,14 +13,14 @@ class Josh extends React.Component {
 
   show() {
     this.setState({ visible: true });
-    const audio = document.querySelector('#audioFavSong');
+    const audio = document.querySelector('.audioFavSong4');
     this.props.joshFavSong && audio.load();
     this.props.joshFavSong && audio.play();
   }
 
   hide() {
     this.setState({ visible: false });
-    const audio = document.querySelector('#audioFavSong');
+    const audio = document.querySelector('.audioFavSong4');
     this.props.joshFavSong && audio.pause();
   }
 
@@ -55,7 +55,7 @@ class Josh extends React.Component {
               not singing, I often do enjoy watching the rain mixed in with the classics.{' '}
             </p>
             {this.props.joshFavSong ? (
-              <audio id="audioFavSong" src={this.props.joshFavSong}></audio>
+              <audio className="audioFavSong4" src={this.props.joshFavSong}></audio>
             ) : null }
           </div>
         </Rodal>

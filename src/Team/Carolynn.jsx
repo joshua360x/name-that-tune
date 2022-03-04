@@ -13,15 +13,15 @@ class Carolynn extends React.Component {
 
   show() {
     this.setState({ visible: true });
-    const audio = document.querySelector('#audioFavSong');
-    this.props.joshFavSong && audio.load();
-    this.props.joshFavSong && audio.play();
+    const audio = document.querySelector('.audioFavSong3');
+    this.props.carolynnFavSong && audio.load();
+    this.props.carolynnFavSong && audio.play();
   }
 
   hide() {
     this.setState({ visible: false });
-    const audio = document.querySelector('#audioFavSong');
-    this.props.joshFavSong && audio.pause();
+    const audio = document.querySelector('.audioFavSong3');
+    this.props.carolynnFavSong && audio.pause();
   }
 
   render() {
@@ -55,8 +55,8 @@ class Carolynn extends React.Component {
             <p>
               My name is Carolynn. I ....{' '}
             </p>
-            {this.props.joshFavSong && (
-              <audio id="audioFavSong" src={this.props.joshFavSong}></audio>
+            {this.props.carolynnFavSong && (
+              <audio className="audioFavSong3" src={this.props.carolynnFavSong}></audio>
             )}
           </div>
         </Rodal>
