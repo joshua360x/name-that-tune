@@ -66,6 +66,17 @@ export default function GamePage({ token, userProfile }) {
   }, [tracks, counter]);
   
 
+  //TRACKS COUNTDOWN SECONDS AND IF 0 RUNS HANDLE SUBMIT TO END ROUND
+  useEffect(() => {
+    async function ifTimeRunsOut() {
+      if (countDownSeconds <= 0) {
+        await handleSubmit();
+      }
+    }
+    ifTimeRunsOut();
+  }, [countDownSeconds]);
+  
+
 //OLD 10 MULTIPLE CHOICE TRACKS
   // useEffect(() => {
   //   if (tracks) {
@@ -98,7 +109,9 @@ export default function GamePage({ token, userProfile }) {
   }
   
   async function handleSubmit(e) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     
     setIsGameStarted(false);
     
@@ -136,7 +149,12 @@ export default function GamePage({ token, userProfile }) {
   
 
   function decrementTimer() {
-    setCountDownSeconds((countDownSeconds) => countDownSeconds - 1);
+    if (countDownSeconds > 0){ 
+      setCountDownSeconds((countDownSeconds) => countDownSeconds - 1);
+    }
+    else if (countDownSeconds === 0){
+      clearInterval(timer);
+    }
   }
   
   function decrementPoints() {

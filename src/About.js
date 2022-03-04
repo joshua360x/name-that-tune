@@ -10,8 +10,6 @@ import { useEffect, useState } from 'react';
 export default function About({ token }) {
 
   const netlifyUrl = '/.netlify/functions/spotify-song';
-
-  const [song, setSong] = useState('');
   const [joshFavSong, setJoshFavSong] = useState('');
 
 

@@ -10,6 +10,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 
+
+
 export default function LeaderboardPage() {
   const [leaders, setLeaders] = useState([]);
   const [mungedLeaders, setMungedLeaders] = useState([]);
@@ -54,7 +56,7 @@ export default function LeaderboardPage() {
 
 
 
-    const newData = mungedData.map((mungedDataPoint, i) => {
+    const newData = mungedData.map((mungedDataPoint) => {
       return {
         username: mungedDataPoint[0],
         totalPoints: mungedDataPoint[1].totalPoints,
@@ -77,42 +79,41 @@ export default function LeaderboardPage() {
   }, [leaders]);
 
 
-
   return (
     <div className="leaderboard">
       <h2>Leaderboard</h2>
       <div className="leader-div">
         {
           mungedLeaders &&
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Username</TableCell>
-                  <TableCell align="right">Rounds</TableCell>
-                  <TableCell align="right">Total Games</TableCell>
-                  <TableCell align="right">Total Points</TableCell>
-                  <TableCell align="right">Percentage Points Per Round</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {mungedLeaders.map((row) => (
-                  <TableRow
-                    key={row.username}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.username}
-                    </TableCell>
-                    <TableCell align="right">{row.rounds}</TableCell>
-                    <TableCell align="right">{row.totalGames}</TableCell>
-                    <TableCell align="right">{row.totalPoints}</TableCell>
-                    <TableCell align="right">{row.pointsPerRound}%</TableCell>
+            <TableContainer component={Paper} >
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Username</TableCell>
+                    <TableCell align="right">Rounds</TableCell>
+                    <TableCell align="right">Total Games</TableCell>
+                    <TableCell align="right">Total Points</TableCell>
+                    <TableCell align="right">Percentage Points Per Round</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {mungedLeaders.map((row) => (
+                    <TableRow
+                      key={row.username}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.username}
+                      </TableCell>
+                      <TableCell align="right">{row.rounds}</TableCell>
+                      <TableCell align="right">{row.totalGames}</TableCell>
+                      <TableCell align="right">{row.totalPoints}</TableCell>
+                      <TableCell align="right">{row.pointsPerRound}%</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
         }
 
       </div>

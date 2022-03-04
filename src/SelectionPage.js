@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import GamePage from './GamePage';
 import { fetchAllPlaylists } from './services/fetch-utils';
 import { Link } from 'react-router-dom';
 
