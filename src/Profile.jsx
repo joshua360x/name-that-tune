@@ -72,8 +72,10 @@ export default function Profile({ token, userProfile }) {
 
   const handleCreatePLaylist = async () => {
     const response = await createNewPlaylist(newPlaylist, playlistName, playlistIds);
-    const json = await response.json();
-    console.log(json);
+    console.log(response);
+    setPlaylistName('');
+    setNewPlaylist('');
+    setCheckedState([]);
   };
 
   return (
