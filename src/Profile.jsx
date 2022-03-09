@@ -53,8 +53,13 @@ export default function Profile({ token, userProfile }) {
       }
       return acc;
     }, []);
-    console.log(chosenTracks);
-    const currentPlaylist = [...newPlaylist, ...chosenTracks];
+
+    const list = await chosenTracks.reduce((acc, curr) => {
+      !newPlaylist.includes(curr) && acc.push(curr);
+      return acc;
+    }, []);
+
+    const currentPlaylist = [...newPlaylist, ...list];
     setNewPlaylist(currentPlaylist);
   };
   return (
@@ -62,7 +67,7 @@ export default function Profile({ token, userProfile }) {
       <select
         onChange={(e) => {
           setSelectedPlaylist(e.target.value);
-          setCheckedState(new Array(options.length).fill(false));
+          setCheckedState(new Array(featuredPlaylistTracks.length).fill(false));
         }}
       >
         {options.map((option, i) => {
@@ -96,7 +101,6 @@ export default function Profile({ token, userProfile }) {
         <div className="user-selected-tracks tracks">
           {newPlaylist.length > 0 &&
             newPlaylist.map((track, i) => {
-              console.log(newPlaylist);
               return <p key={track.track.name + i}>{track.track.name}</p>;
             })}
         </div>
