@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 export default function Profile({ token, userProfile }) {
   const [newPlaylist, setNewPlaylist] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState('');
+  const [featuredPlaylistTracks, setFeaturedPlaylistTracks] = useState([]);
   const [options, setOptions] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [checkedState, setCheckedState] = useState([]);
@@ -24,6 +25,18 @@ export default function Profile({ token, userProfile }) {
     setCheckedState(new Array(options.length).fill(false));
   }, [options]);
 
+  useEffect(() => {
+    const displayTracksList = async () => {
+      const response = await fetch(
+        `/.netlify/functions/spotify-playlist-items?token=${token}&playlist_id=${selectedPlaylist}`
+      );
+      const json = await response.json();
+      console.log(json);
+      setFeaturedPlaylistTracks(json);
+    };
+    displayTracksList();
+  }, [selectedPlaylist]);
+
   const handleCheckboxChange = (position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
       index === position ? !item : item
@@ -33,7 +46,7 @@ export default function Profile({ token, userProfile }) {
   return (
     <div>
       <form>
-        <select>
+        <select onChange={(e) => setSelectedPlaylist(e.target.value)}>
           {options.map((option, i) => {
             return (
               <option key={option.name + i} value={option.id}>
