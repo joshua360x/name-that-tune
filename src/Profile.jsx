@@ -16,6 +16,7 @@ export default function Profile({ token, userProfile }) {
       const json = await response.json();
       console.log(json.data.playlists.items);
       setOptions(json.data.playlists.items);
+      setSelectedPlaylist(json.data.playlists.items[0].id);
     }
     fetchFeaturedPlayListsFromSpotify();
   }, [token]);
@@ -31,8 +32,13 @@ export default function Profile({ token, userProfile }) {
         `/.netlify/functions/spotify-playlist-items?token=${token}&playlist_id=${selectedPlaylist}`
       );
       const json = await response.json();
-      console.log(json);
-      setFeaturedPlaylistTracks(json);
+      let tracks = [];
+      json &&
+        (await json.data.items.map((item) => {
+          item.track.preview_url && tracks.push(item);
+        }));
+      console.log(tracks);
+      setFeaturedPlaylistTracks(tracks);
     };
     displayTracksList();
   }, [selectedPlaylist]);
@@ -44,18 +50,25 @@ export default function Profile({ token, userProfile }) {
     setCheckedState(updatedCheckedState);
   };
   return (
-    <div>
-      <form>
-        <select onChange={(e) => setSelectedPlaylist(e.target.value)}>
-          {options.map((option, i) => {
-            return (
-              <option key={option.name + i} value={option.id}>
-                {option.name}
-              </option>
-            );
-          })}
-        </select>
-      </form>
+    <div className="playlist-creation-panel">
+      <select onChange={(e) => setSelectedPlaylist(e.target.value)}>
+        {options.map((option, i) => {
+          return (
+            <option key={option.name + i} value={option.id}>
+              {option.name}
+            </option>
+          );
+        })}
+      </select>
+      <div className="tracks-selection-container">
+        <div className="playlist-track-options tracks">
+          {featuredPlaylistTracks &&
+            featuredPlaylistTracks.map((track, i) => {
+              return <p key={track.track.name + i}>{track.track.name}</p>;
+            })}
+        </div>
+        <div className="user-selected-tracks tracks"></div>
+      </div>
     </div>
   );
 }
