@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { createNewPlaylist } from './services/fetch-utils';
 
 export default function Profile({ token, userProfile }) {
   const [newPlaylist, setNewPlaylist] = useState('');
+  const [playlistIds, setPlaylistIds] = useState('');
   const [selectedPlaylist, setSelectedPlaylist] = useState('');
   const [featuredPlaylistTracks, setFeaturedPlaylistTracks] = useState([]);
   const [options, setOptions] = useState([]);
-  //   const [isChecked, setIsChecked] = useState(false);
+  const [playlistName, setPlaylistName] = useState('');
   const [checkedState, setCheckedState] = useState([]);
 
   const netlifyUrl = '/.netlify/functions/spotify-featured-playlist';
@@ -61,7 +63,19 @@ export default function Profile({ token, userProfile }) {
 
     const currentPlaylist = [...newPlaylist, ...list];
     setNewPlaylist(currentPlaylist);
+
+    const ids = await currentPlaylist.reduce((acc, curr) => {
+      return acc.concat(curr.track.id);
+    }, []);
+    setPlaylistIds(ids);
   };
+
+  const handleCreatePLaylist = async () => {
+    const response = await createNewPlaylist(newPlaylist, playlistName, playlistIds);
+    const json = await response.json();
+    console.log(json);
+  };
+
   return (
     <div className="playlist-creation-panel">
       <select
@@ -103,6 +117,13 @@ export default function Profile({ token, userProfile }) {
             newPlaylist.map((track, i) => {
               return <p key={track.track.name + i}>{track.track.name}</p>;
             })}
+        </div>
+        <div>
+          <label>
+            {`Name Your Playlist : `}
+            <input onChange={(e) => setPlaylistName(e.target.value)} value={playlistName}></input>
+            <button onClick={handleCreatePLaylist}>Create Playlist</button>
+          </label>
         </div>
       </div>
     </div>
