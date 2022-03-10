@@ -10,6 +10,9 @@ export default function Profile({ token, userProfile }) {
   const [playlistName, setPlaylistName] = useState('');
   const [checkedState, setCheckedState] = useState([]);
 
+  const [artistSearch, setArtistSearch] = useState('');
+  const [trackSearch, setTrackSearch] = useState('');
+
   const netlifyUrl = '/.netlify/functions/spotify-featured-playlist';
 
   useEffect(() => {
@@ -78,22 +81,57 @@ export default function Profile({ token, userProfile }) {
     setCheckedState([]);
   };
 
+  const searchSpotifyByArtist = async () => {
+    const response = await fetch(
+      `/.netlify/functions/spotify-search?token=${token}&searchParam=${artistSearch}&searchType=artist&market=us`
+    );
+    const json = await response.json();
+    console.log(json);
+  };
+  const searchSpotifyByTrack = async () => {
+    const response = await fetch(
+      `/.netlify/functions/spotify-search?token=${token}&searchParam=${trackSearch}&searchType=track&market=us`
+    );
+    const json = await response.json();
+    console.log(json);
+  };
+
   return (
     <div className="playlist-creation-panel">
-      <select
-        onChange={(e) => {
-          setSelectedPlaylist(e.target.value);
-          setCheckedState(new Array(featuredPlaylistTracks.length).fill(false));
-        }}
-      >
-        {options.map((option, i) => {
-          return (
-            <option key={option.name + i} value={option.id}>
-              {option.name}
-            </option>
-          );
-        })}
-      </select>
+      <div className="search-dropdowns">
+        <label className="search-labels">
+          {`Browse Featured Playlists : `}
+          <select
+            onChange={(e) => {
+              setSelectedPlaylist(e.target.value);
+              setCheckedState(new Array(featuredPlaylistTracks.length).fill(false));
+            }}
+          >
+            {options.map((option, i) => {
+              return (
+                <option key={option.name + i} value={option.id}>
+                  {option.name}
+                </option>
+              );
+            })}
+          </select>
+        </label>
+        <label className="search-labels">
+          {`Search by Artist : `}
+          <input
+            required
+            value={artistSearch}
+            onChange={(e) => setArtistSearch(e.target.value)}
+          ></input>
+          <button onClick={searchSpotifyByArtist}>Search by Artist</button>
+        </label>
+        <label className="search-labels">
+          {`Search by Song Name : `}
+          <input value={trackSearch} onChange={(e) => setTrackSearch(e.target.value)}></input>
+          <button onClick={searchSpotifyByTrack}>Search by Song Name</button>
+        </label>
+      </div>
+
       <div className="tracks-selection-container">
         <div className="playlist-track-options tracks">
           {featuredPlaylistTracks &&

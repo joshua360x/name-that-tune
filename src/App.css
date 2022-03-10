@@ -489,6 +489,18 @@ a:hover {
   overflow: scroll;
 }
 
+.search-dropdowns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-labels {
+  display: flex;
+  flex-direction: column;
+}
+
 /* .playlist-track-options {
   border: 1px solid black;
   margin-top: 10px;
