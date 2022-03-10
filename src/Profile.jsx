@@ -10,10 +10,23 @@ export default function Profile({ token, userProfile }) {
   const [playlistName, setPlaylistName] = useState('');
   const [checkedState, setCheckedState] = useState([]);
 
+  const [genreDropdown, setGenreDropdown] = useState('');
+  //   const [selectedGenre, setSelectedGenre] = useState('');
+
   const [artistSearch, setArtistSearch] = useState('');
   const [trackSearch, setTrackSearch] = useState('');
 
   const netlifyUrl = '/.netlify/functions/spotify-featured-playlist';
+
+  useEffect(() => {
+    const getGenreSeeds = async () => {
+      const response = await fetch(`/.netlify/functions/spotify-genre-seeds?token=${token}`);
+      const json = await response.json();
+      console.log(json);
+      (await json) && setGenreDropdown(json.data.genres);
+    };
+    getGenreSeeds();
+  }, [token]);
 
   useEffect(() => {
     async function fetchFeaturedPlayListsFromSpotify() {
@@ -95,6 +108,13 @@ export default function Profile({ token, userProfile }) {
     const json = await response.json();
     console.log(json);
   };
+  const searchSpotifyByGenre = async (selectedGenre) => {
+    const response = await fetch(
+      `/.netlify/functions/spotify-recommendations?token=${token}&searchParam=${selectedGenre}`
+    );
+    const json = await response.json();
+    console.log(json);
+  };
 
   return (
     <div className="playlist-creation-panel">
@@ -114,6 +134,24 @@ export default function Profile({ token, userProfile }) {
                 </option>
               );
             })}
+          </select>
+        </label>
+        <label className="search-labels">
+          {`Browse By Genre : `}
+          <select
+            onChange={(e) => {
+              searchSpotifyByGenre(e.target.value);
+              //   setCheckedState(new Array(featuredPlaylistTracks.length).fill(false));
+            }}
+          >
+            {genreDropdown &&
+              genreDropdown.map((option, i) => {
+                return (
+                  <option key={option + i} value={option}>
+                    {option}
+                  </option>
+                );
+              })}
           </select>
         </label>
         <label className="search-labels">
