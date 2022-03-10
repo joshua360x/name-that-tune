@@ -137,7 +137,8 @@ export default function Profile({ token, userProfile }) {
           </select>
         </label>
         <label className="search-labels">
-          {`Browse By Genre : `}
+          {`Get Recommendations
+           By Genre : `}
           <select
             onChange={(e) => {
               searchSpotifyByGenre(e.target.value);
