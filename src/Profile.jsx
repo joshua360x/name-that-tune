@@ -18,6 +18,7 @@ export default function Profile({ token, userProfile }) {
 
   const [artistSearch, setArtistSearch] = useState('');
   const [artistResults, setArtistResults] = useState('');
+  const [artistAlbums, setArtistAlbums] = useState('');
 
   const [trackSearch, setTrackSearch] = useState('');
   const [trackResults, setTrackResults] = useState('');
@@ -28,7 +29,6 @@ export default function Profile({ token, userProfile }) {
     const getGenreSeeds = async () => {
       const response = await fetch(`/.netlify/functions/spotify-genre-seeds?token=${token}`);
       const json = await response.json();
-      console.log(json);
       (await json) && setGenreDropdown(json.data.genres);
     };
     getGenreSeeds();
@@ -124,6 +124,16 @@ export default function Profile({ token, userProfile }) {
     console.log(json);
   };
 
+  const handleArtistSelection = async (id) => {
+    const response = await fetch(
+      `/.netlify/functions/spotify-artist-albums?token=${token}&artist_id=${id}`
+    );
+    const json = await response.json();
+    console.log(json);
+    json.data.items && setArtistAlbums(json);
+    json.data.items && setSelectedFilter('albums');
+  };
+
   return (
     <div className="playlist-creation-panel">
       <label>
@@ -158,6 +168,8 @@ export default function Profile({ token, userProfile }) {
           handleCheckboxChange={handleCheckboxChange}
           artistResults={artistResults}
           trackResults={trackResults}
+          handleArtistSelection={handleArtistSelection}
+          albums={artistAlbums}
         />
 
         <div className="user-selected-tracks ">

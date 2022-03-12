@@ -1,5 +1,7 @@
 import React from 'react';
-
+import ArtistResults from '../Components/ArtistResults';
+import AlbumResults from '../Components/AlbumResults';
+import FeaturedResults from '../Components/FeaturedResults';
 export default function SearchResults({
   filter,
   featuredPlaylistTracks,
@@ -7,48 +9,29 @@ export default function SearchResults({
   handleCheckboxChange,
   artistResults,
   trackResults,
+  handleArtistSelection,
+  albums,
 }) {
   const filterDisplay = () => {
     switch (filter) {
       case 'featured':
         return (
-          <div className="playlist-track-options tracks">
-            {featuredPlaylistTracks &&
-              featuredPlaylistTracks.map((track, i) => {
-                return (
-                  <div key={track.track.name + i}>
-                    <input
-                      key={track.track.name + i}
-                      type="checkbox"
-                      id={`custom-checkbox-${i}`}
-                      name={track.track.name}
-                      value={track.track.name}
-                      checked={checkedState[i]}
-                      onChange={() => handleCheckboxChange(i)}
-                    ></input>
-                    <label>{track.track.name}</label>
-                  </div>
-                );
-              })}
-          </div>
+          <FeaturedResults
+            featuredPlaylistTracks={featuredPlaylistTracks}
+            checkedState={checkedState}
+            handleCheckboxChange={handleCheckboxChange}
+          />
         );
 
       case 'artists':
         return (
-          <div className="playlist-track-options tracks">
-            {artistResults &&
-              artistResults.data.artists.items.map((artist, i) => {
-                return (
-                  <div key={i}>
-                    <p>{artist.name}</p>
-                    {artist.images.length > 0 && (
-                      <img style={{ width: '100px' }} src={artist.images[0].url}></img>
-                    )}
-                  </div>
-                );
-              })}
-          </div>
+          <ArtistResults
+            artistResults={artistResults}
+            handleArtistSelection={handleArtistSelection}
+          />
         );
+      case 'albums':
+        return <AlbumResults albums={albums} />;
       case 'tracks':
         return (
           <div className="playlist-track-options tracks">
