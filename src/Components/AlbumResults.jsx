@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function AlbumResults({ albums }) {
-  console.log(albums);
   return (
     <div>
       {albums.data &&
