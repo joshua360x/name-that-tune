@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import Featured from './Components/Featured';
+import DataDisplay from './data-utils/DataDisplay';
+import SearchResults from './data-utils/SearchResults';
 import { createNewPlaylist } from './services/fetch-utils';
 
 export default function Profile({ token, userProfile }) {
@@ -11,10 +14,13 @@ export default function Profile({ token, userProfile }) {
   const [checkedState, setCheckedState] = useState([]);
 
   const [genreDropdown, setGenreDropdown] = useState('');
-  //   const [selectedGenre, setSelectedGenre] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('featured');
 
   const [artistSearch, setArtistSearch] = useState('');
+  const [artistResults, setArtistResults] = useState('');
+
   const [trackSearch, setTrackSearch] = useState('');
+  const [trackResults, setTrackResults] = useState('');
 
   const netlifyUrl = '/.netlify/functions/spotify-featured-playlist';
 
@@ -100,6 +106,7 @@ export default function Profile({ token, userProfile }) {
     );
     const json = await response.json();
     console.log(json);
+    setArtistResults(json);
   };
   const searchSpotifyByTrack = async () => {
     const response = await fetch(
@@ -107,6 +114,7 @@ export default function Profile({ token, userProfile }) {
     );
     const json = await response.json();
     console.log(json);
+    setTrackResults(json);
   };
   const searchSpotifyByGenre = async (selectedGenre) => {
     const response = await fetch(
@@ -118,91 +126,54 @@ export default function Profile({ token, userProfile }) {
 
   return (
     <div className="playlist-creation-panel">
-      <div className="search-dropdowns">
-        <label className="search-labels">
-          {`Browse Featured Playlists : `}
-          <select
-            onChange={(e) => {
-              setSelectedPlaylist(e.target.value);
-              setCheckedState(new Array(featuredPlaylistTracks.length).fill(false));
-            }}
-          >
-            {options.map((option, i) => {
-              return (
-                <option key={option.name + i} value={option.id}>
-                  {option.name}
-                </option>
-              );
-            })}
-          </select>
-        </label>
-        <label className="search-labels">
-          {`Get Recommendations
-           By Genre : `}
-          <select
-            onChange={(e) => {
-              searchSpotifyByGenre(e.target.value);
-              //   setCheckedState(new Array(featuredPlaylistTracks.length).fill(false));
-            }}
-          >
-            {genreDropdown &&
-              genreDropdown.map((option, i) => {
-                return (
-                  <option key={option + i} value={option}>
-                    {option}
-                  </option>
-                );
-              })}
-          </select>
-        </label>
-        <label className="search-labels">
-          {`Search by Artist : `}
-          <input
-            required
-            value={artistSearch}
-            onChange={(e) => setArtistSearch(e.target.value)}
-          ></input>
-          <button onClick={searchSpotifyByArtist}>Search by Artist</button>
-        </label>
-        <label className="search-labels">
-          {`Search by Song Name : `}
-          <input value={trackSearch} onChange={(e) => setTrackSearch(e.target.value)}></input>
-          <button onClick={searchSpotifyByTrack}>Search by Song Name</button>
-        </label>
-      </div>
-
+      <label>
+        {`Search By : `}
+        <select onChange={(e) => setSelectedFilter(e.target.value)}>
+          <option value={'featured'}>Featured Playlists</option>
+          <option value={'artists'}>Artists</option>
+          <option value={'tracks'}>Tracks</option>
+          <option value={'recommendations'}>Recommendations By Genre</option>
+        </select>
+      </label>
+      <DataDisplay
+        filter={selectedFilter}
+        setSelectedPlaylist={setSelectedPlaylist}
+        setCheckedState={setCheckedState}
+        options={options}
+        featuredPlaylistTracks={featuredPlaylistTracks}
+        artistSearch={artistSearch}
+        setArtistSearch={setArtistSearch}
+        searchSpotifyByArtist={searchSpotifyByArtist}
+        trackSearch={trackSearch}
+        setTrackSearch={setTrackSearch}
+        searchSpotifyByTrack={searchSpotifyByTrack}
+        searchSpotifyByGenre={searchSpotifyByGenre}
+        genreDropdown={genreDropdown}
+      />
       <div className="tracks-selection-container">
-        <div className="playlist-track-options tracks">
-          {featuredPlaylistTracks &&
-            featuredPlaylistTracks.map((track, i) => {
-              return (
-                <div key={track.track.name + i}>
-                  <input
-                    key={track.track.name + i}
-                    type="checkbox"
-                    id={`custom-checkbox-${i}`}
-                    name={track.track.name}
-                    value={track.track.name}
-                    checked={checkedState[i]}
-                    onChange={() => handleCheckboxChange(i)}
-                  ></input>
-                  <label>{track.track.name}</label>
-                </div>
-              );
-            })}
-        </div>
-        <div className="user-selected-tracks tracks">
-          {newPlaylist.length > 0 &&
-            newPlaylist.map((track, i) => {
-              return <p key={track.track.name + i}>{track.track.name}</p>;
-            })}
-        </div>
-        <div>
-          <label>
-            {`Name Your Playlist : `}
-            <input onChange={(e) => setPlaylistName(e.target.value)} value={playlistName}></input>
-            <button onClick={handleCreatePLaylist}>Create Playlist</button>
-          </label>
+        <SearchResults
+          filter={selectedFilter}
+          featuredPlaylistTracks={featuredPlaylistTracks}
+          checkedState={checkedState}
+          handleCheckboxChange={handleCheckboxChange}
+          artistResults={artistResults}
+          trackResults={trackResults}
+        />
+
+        <div className="user-selected-tracks ">
+          <div className="tracks">
+            {newPlaylist.length > 0 &&
+              newPlaylist.map((track, i) => {
+                return <p key={track.track.name + i}>{track.track.name}</p>;
+              })}
+          </div>
+          <div>
+            <label>
+              {`Name Your Playlist : `}
+              <input onChange={(e) => setPlaylistName(e.target.value)} value={playlistName}></input>
+              <button onClick={handleCreatePLaylist}>Create Playlist</button>
+            </label>
+          </div>
         </div>
       </div>
     </div>

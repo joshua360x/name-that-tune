@@ -482,7 +482,6 @@ a:hover {
 }
 
 .tracks {
-  border: 1px solid black;
   margin-top: 10px;
   height: 300px;
   width: 300px;
@@ -501,15 +500,17 @@ a:hover {
   flex-direction: column;
 }
 
-/* .playlist-track-options {
-  border: 1px solid black;
-  margin-top: 10px;
-  height: 300px;
-  width: 300px;
-  overflow: scroll;
-} */
+.playlist-track-options {
+border: 1px solid black;
+height: 300px;
+margin: 0;
+}
 
-/* .user-selected-tracks {
-  height: 300px;
-  width: 300px;
-} */
+.user-selected-tracks {
+ border: 1px solid black;
+ height: 300px;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
