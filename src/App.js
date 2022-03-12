@@ -6,12 +6,12 @@ import GamePage from './GamePage';
 import SelectionPage from './SelectionPage.js';
 import LeaderboardPage from './LeaderboardPage';
 import About from './About';
+import Profile from './Profile';
 // import SpotifyPlaylist from './SpotifyPlaylist';
 
 import { useState, useEffect } from 'react';
 
 import { logout, fetchUserProfile } from './services/fetch-utils';
-
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('supabase.auth.token'));
@@ -34,7 +34,6 @@ function App() {
     getProfile();
   }, [user]);
 
-
   useEffect(() => {
     const getToken = async () => {
       const response = await fetch(netlifyUrlToken);
@@ -43,35 +42,44 @@ function App() {
     };
     getToken();
   }, []);
-  
-
 
   return (
     <div className="App" style={{ background: 'url(/background.jpeg)' }}>
       <Router>
         <header>
-
-          { user &&
-          <ul className='nav-list'>
-            <li>
-              <NavLink className='link' to='/selection'>Selection</NavLink>
-            </li>
-            <li>
-              <button className='logout-button' onClick={logout}>Log Out</button>
-            </li>
-            <li>
-              <NavLink className='link' to='/leaderboard'>Leaderboard</NavLink>
-            </li>
-            <li>
-              <NavLink className='link' to="/about">About</NavLink> 
-            </li>
-          </ul>
-          }
-
+          {user && (
+            <ul className="nav-list">
+              <li>
+                <NavLink className="link" to="/selection">
+                  Selection
+                </NavLink>
+              </li>
+              <li>
+                <button className="logout-button" onClick={logout}>
+                  Log Out
+                </button>
+              </li>
+              <li>
+                <NavLink className="link" to="/leaderboard">
+                  Leaderboard
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="link" to="/profile">
+                  Profile
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="link" to="/about">
+                  About
+                </NavLink>
+              </li>
+            </ul>
+          )}
         </header>
         <Switch>
           <Route exact path="/selection">
-            {user ? <SelectionPage/> : <Redirect to="/" />}
+            {user ? <SelectionPage /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/game/:id/:name">
             {user ? <GamePage token={token} userProfile={userProfile} /> : <Redirect to="/" />}
@@ -81,6 +89,9 @@ function App() {
           </Route>
           <Route exact path="/about">
             {user ? <About token={token} /> : <Redirect to="/" />}
+          </Route>
+          <Route exact path="/profile">
+            {user ? <Profile token={token} userProfile={userProfile} /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/">
             {user ? <Redirect to="/selection" /> : <AuthPage setUser={setUser} />}

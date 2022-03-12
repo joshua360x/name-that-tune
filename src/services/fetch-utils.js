@@ -39,11 +39,7 @@ export async function createProfile(username) {
 }
 
 export const fetchUserProfile = async (user_id) => {
-  const response = await client
-    .from('profiles')
-    .select()
-    .match({ user_id })
-    .single();
+  const response = await client.from('profiles').select().match({ user_id }).single();
 
   return checkError(response);
 };
@@ -67,5 +63,12 @@ export const insertLeaderBoard = async (stats) => {
 
 export const fetchLeaders = async () => {
   const response = await client.from('leaderboards').select();
+  return checkError(response);
+};
+
+export const createNewPlaylist = async (playlist, name, playlist_ids) => {
+  const response = await client
+    .from('user_playlists')
+    .insert({ playlist: playlist, name: name, playlist_ids: playlist_ids });
   return checkError(response);
 };

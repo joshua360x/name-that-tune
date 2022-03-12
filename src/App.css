@@ -466,3 +466,51 @@ a:hover {
   border: 1px solid #61dafb;
   border-radius: 20px;
 }
+
+.playlist-creation-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tracks-selection-container {
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+  justify-content: space-evenly;
+}
+
+.tracks {
+  margin-top: 10px;
+  height: 300px;
+  width: 300px;
+  overflow: scroll;
+}
+
+.search-dropdowns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-labels {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-track-options {
+border: 1px solid black;
+height: 300px;
+margin: 0;
+}
+
+.user-selected-tracks {
+ border: 1px solid black;
+ height: 300px;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
