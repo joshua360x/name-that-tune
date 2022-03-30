@@ -12,6 +12,7 @@ exports.handler = async (event, context) => {
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: {
+      // wow, how annoying is that? really nice work figuring it out.
       'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
     },
     form: {

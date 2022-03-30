@@ -12,14 +12,12 @@ export default function AuthPage({ setUser }) {
   async function handleSubmit(e) {
     e.preventDefault();
     
-    if (wantsSignIn) {
-      const user = await signInUser(email, password);
-      setUser(user);
-    }
-    else {
-      const user = await signupUser(email, password, username);
-      setUser(user);
-    }
+    // this is a good use case for a ternary, since the result of the ternary is a decision about which of two values to assign to a variable
+    const user = wantsSignIn 
+      ? await signInUser(email, password) 
+      : await signupUser(email, password, username);
+
+    setUser(user)
   }
 
 
@@ -65,16 +63,17 @@ export default function AuthPage({ setUser }) {
 
         <div className='buttons'>
           {
-            !wantsSignIn && <button>Sign Up</button>
+            !wantsSignIn 
+              ? <>
+                  <button
+                    onClick={handleSignInClick}>
+                      Already a user? Sign In...
+                  </button>
+                  <button>Sign Up</button>
+                </>
+              : <button>Sign In</button>
           }
-          {
-            !wantsSignIn && <button
-              onClick={handleSignInClick}
-            >Already a user? Sign In...</button>
-          }
-          {
-            wantsSignIn && <button>Sign In</button>
-          }
+
         </div>
       </form>
     </div>

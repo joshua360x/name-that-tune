@@ -24,6 +24,7 @@ function App() {
   useEffect(() => {
     const getProfile = async () => {
       let profile;
+      
       const user_id = JSON.parse(user);
       user_id
         ? (profile = await fetchUserProfile(user_id.currentSession.user.id))

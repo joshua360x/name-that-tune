@@ -1,9 +1,16 @@
+// this file got a bit too big--i would like to see it abstracted into a few smaller components, with perhaps ever a custom hook/context to hide the details of state
+
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { insertLeaderBoard } from './services/fetch-utils';
 import './GamePage.css';
+
+// constants that are hard coded are usually written in screaming snake case to convey that they are 'configurable'
+// also, such constants should live outside component definitions in case you want to export and reuse them throughout the app
+
+const NETLIFY_URL = '/.netlify/functions/spotify-playlist-items';
 
 export default function GamePage({ token, userProfile }) {
   const [tracks, setTracks] = useState(null);
@@ -19,8 +26,6 @@ export default function GamePage({ token, userProfile }) {
   const [isCorrectGuess, setIsCorrectGuess] = useState(false);
 
   const [choiceArr, setChoiceArr] = useState([]);
-
-  const netlifyUrl = '/.netlify/functions/spotify-playlist-items';
 
   const params = useParams();
   const history = useHistory();
@@ -89,7 +94,7 @@ export default function GamePage({ token, userProfile }) {
 
   useEffect(() => {
     async function fetchPlayListsFromSpotify() {
-      const response = await fetch(`${netlifyUrl}?token=${token}&playlist_id=${params.id}`);
+      const response = await fetch(`${NETLIFY_URL}?token=${token}&playlist_id=${params.id}`);
       const json = await response.json();
       setTracks(json.data.items);
     }
@@ -111,6 +116,7 @@ export default function GamePage({ token, userProfile }) {
   
   async function handleSubmit(e) {
     if (e) {
+      // haha interesting!
       e.preventDefault();
     }
     
@@ -129,14 +135,15 @@ export default function GamePage({ token, userProfile }) {
     setAvailablePoints(100);
     setUserGuess('');
 
-    counter + 1 === tracks.length && 
-    userProfile &&
-    (await insertLeaderBoard({
-      username: userProfile.username,
-      user_id: userProfile.user_id,
-      score: totalPoints,
-      rounds: tracks.length,
-    }));
+    if (counter + 1 === tracks.length && userProfile) {
+      // the chained &&s without an if block are usually reserved for conditional assignment (or return values) like so: `const user = counter + 1 === tracks.length && userProfile`
+      await insertLeaderBoard({
+          username: userProfile.username,
+          user_id: userProfile.user_id,
+          score: totalPoints,
+          rounds: tracks.length,
+        });
+  }
   }
   
 
@@ -165,7 +172,7 @@ export default function GamePage({ token, userProfile }) {
   return (
     <div className='game-page'>
       <h2>{`Welcome to ${params.name} trivia!`} <br></br>Now name that tune!</h2>
-
+      {/* basically anywhere you have a comment in this return JSX, i'd recommend building out a new component to make this file smaller and more maintainable */}
       {/* GAME COMPLETION MESSAGE + REDIRECT BUTTONS */}
       {counter === tracks?.length &&
         <div className="completed-game-state">
@@ -192,6 +199,7 @@ export default function GamePage({ token, userProfile }) {
       <button className='game-button' onClick={handleStartGame}>Begin Round</button>}
 
       {/* MULTIPLE CHOICE FORM, COUNTDOWN TIMER, REMAINING POINTS */}
+      {/* these are too long to be terneries--pretty challenging to read. I'd break these down into components so you could do isGamStarted ? <FormAndStuff {...someProps} /> : <DisplayCorrectOrIncorrect {...someProps} /> */}
       {isGameStarted ?
       (
       <div className='form-and-stuff'>
@@ -232,6 +240,7 @@ export default function GamePage({ token, userProfile }) {
         // DISPLAY CORRECT OR INCORRECT
         (counter === 0) ? null 
         : (isCorrectGuess) 
+        // these nested terneries can become a pain to maintain and super easy to break. you'll want to do future devs a favor and get in the habit of not letting your terneries go more than 1 level deep
             ? <div className='correct-wrong'><img src='/king.png'></img><h2>CORRECT!!!! </h2></div>
             : <div className='correct-wrong'><img src='/king.png'></img><h2>WRONG ANSWER! </h2></div>
       )

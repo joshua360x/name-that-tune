@@ -26,35 +26,37 @@ export default function LeaderboardPage() {
   }, []);
 
   useEffect(() => {
+    // cool reduce, but a bit tough to read and uses some non-standard ternaries.
     const newLeaders = leaders.reduce((acc, curr) => {
-      !acc[curr.username] && (acc[curr.username] = {});
-      acc[curr.username].totalPoints
-        ? (acc[curr.username].totalPoints = acc[curr.username].totalPoints + curr.score)
-        : (acc[curr.username].totalPoints = curr.score);
+      // in my opinion, it feels weird to have assignment as the final statement of a ternery.
+      // here's some conversation with varying opinions on the issue: https://github.com/rubocop/ruby-style-guide/issues/704
+      if (!acc[curr.username]) {
+        acc[curr.username] = {};
+      }
+       
+      // seems like this would work, since obj would point to the same object? Either way, for readability i'd want to find a way to get rid of all the acc[curr.username]
+      const userData = acc[curr.username];
+      // as a rule, only use ternaries for assignment or return values. these should be refactored as assignments, or rewritten as if/else blocks. no assignment should occur within the final statement of a ternery. a ternery is itself a decision about how to do assignment
+      userData.totalPoints = 
+        userData.totalPoints
+          ? userData.totalPoints + curr.score
+          : curr.score;
+      
+      userData.totalGames = 
+        userData.totalGames
+          ? userData.totalGames + 1
+          : 1;
 
-      acc[curr.username].totalGames
-        ? (acc[curr.username].totalGames = acc[curr.username].totalGames + 1)
-        : (acc[curr.username].totalGames = 1);
+      userData.rounds = 
+        userData.rounds
+        ? userData.rounds + curr.rounds
+        : userData.rounds = curr.rounds;
 
-      acc[curr.username].rounds
-        ? (acc[curr.username].rounds = acc[curr.username].rounds + curr.rounds)
-        : (acc[curr.username].rounds = curr.rounds);
-
-      // acc[curr.username].pointsPerRound
-      //   ? (acc[curr.username].pointsPerRound = acc[curr.username].rounds + curr.rounds)
-      //   : (acc[curr.username].rounds = curr.rounds);
 
       return acc;
     }, {});
 
-
-
-//     console.log(newLeaders);
     const mungedData = Object.entries(newLeaders);
-
-//     console.log(mungedData);
-
-
 
     const newData = mungedData.map((mungedDataPoint) => {
       return {
@@ -66,14 +68,7 @@ export default function LeaderboardPage() {
       };
     });
 
-//     console.log(newData);
-
     const sortedData = newData.sort((a, b) => a.pointsPerRound - b.pointsPerRound).reverse();
-//     console.log(sortedData);
-
-
-
-
 
     setMungedLeaders(sortedData);
   }, [leaders]);
