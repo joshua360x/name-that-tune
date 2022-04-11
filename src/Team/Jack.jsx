@@ -5,6 +5,7 @@ import Rodal from 'rodal';
 // include styles
 import 'rodal/lib/rodal.css';
 
+// maybe i'm not looking close enough, but it seems like these 4 componented could have been abstracted into a TeamMember component that took props and you mapped over some JSON to fill in the blanks?
 class Jack extends React.Component {
   constructor(props) {
     super(props);
